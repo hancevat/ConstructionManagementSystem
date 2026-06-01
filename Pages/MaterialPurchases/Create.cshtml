@@ -1,0 +1,70 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.MaterialPurchases.CreateModel
+@{
+    ViewData["Title"] = "Yeni Malzeme Alımı";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni Malzeme Alımı</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="MaterialPurchase.ConstructionProjectId" class="form-label"></label>
+                <select asp-for="MaterialPurchase.ConstructionProjectId" asp-items="Model.ProjectOptions" class="form-select">
+                    <option value="">Proje seçin</option>
+                </select>
+                <span asp-validation-for="MaterialPurchase.ConstructionProjectId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="MaterialPurchase.MaterialId" class="form-label"></label>
+                <select asp-for="MaterialPurchase.MaterialId" asp-items="Model.MaterialOptions" class="form-select">
+                    <option value="">Malzeme seçin</option>
+                </select>
+                <span asp-validation-for="MaterialPurchase.MaterialId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="MaterialPurchase.SupplierId" class="form-label"></label>
+                <select asp-for="MaterialPurchase.SupplierId" asp-items="Model.SupplierOptions" class="form-select">
+                    <option value="">Tedarikçi seçin</option>
+                </select>
+                <span asp-validation-for="MaterialPurchase.SupplierId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="MaterialPurchase.PurchaseDate" class="form-label"></label>
+                <input asp-for="MaterialPurchase.PurchaseDate" class="form-control" />
+                <span asp-validation-for="MaterialPurchase.PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="MaterialPurchase.Quantity" class="form-label"></label>
+                <input asp-for="MaterialPurchase.Quantity" class="form-control" />
+                <span asp-validation-for="MaterialPurchase.Quantity" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="MaterialPurchase.UnitPrice" class="form-label"></label>
+                <input asp-for="MaterialPurchase.UnitPrice" class="form-control" />
+                <span asp-validation-for="MaterialPurchase.UnitPrice" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="MaterialPurchase.Description" class="form-label"></label>
+            <textarea asp-for="MaterialPurchase.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="MaterialPurchase.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

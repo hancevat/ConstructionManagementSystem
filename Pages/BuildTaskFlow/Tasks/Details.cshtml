@@ -1,0 +1,89 @@
+@page "{id:int}"
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Tasks.DetailsModel
+@{
+    ViewData["Title"] = "Görev Detayı";
+    var canManageTasks = BuildTaskFlowPermissions.CanManageTasks(User);
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Görev Detayı</h1>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+        @if (canManageTasks)
+        {
+            <a class="btn btn-primary" asp-page="Edit" asp-route-id="@Model.TaskItem.Id">Düzenle</a>
+        }
+    </div>
+</div>
+
+<div class="content-card p-4 mb-4">
+    <div class="details-grid">
+        <div class="details-item">
+            <div class="details-label">Görev</div>
+            <div class="details-value">@Model.TaskItem.Title</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Proje</div>
+            <div class="details-value">@Model.TaskItem.Project?.Name</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Durum</div>
+            <div class="details-value">@Model.TaskItem.Status?.Name</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Öncelik</div>
+            <div class="details-value">@Model.TaskItem.Priority</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Teslim Tarihi</div>
+            <div class="details-value">@(Model.TaskItem.DueDate?.ToString("dd.MM.yyyy") ?? "-")</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Atanan</div>
+            <div class="details-value">@string.Join(", ", Model.TaskItem.Assignments.Select(item => item.TeamMember?.FullName))</div>
+        </div>
+    </div>
+    <p class="text-muted mt-3 mb-0">@Model.TaskItem.Description</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="content-card p-3">
+            <h2 class="h5 mb-3">Yorumlar</h2>
+            @foreach (var comment in Model.TaskItem.Comments.OrderByDescending(comment => comment.CreatedAt))
+            {
+                <div class="border-bottom pb-3 mb-3">
+                    <div class="d-flex justify-content-between gap-2">
+                        <strong>@comment.TeamMember?.FullName</strong>
+                        <span class="text-muted small">@comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                    </div>
+                    <p class="mb-0">@comment.Text</p>
+                </div>
+            }
+            @if (!Model.TaskItem.Comments.Any())
+            {
+                <p class="text-muted mb-0">Henüz yorum eklenmemiş.</p>
+            }
+        </div>
+    </div>
+    @if (canManageTasks)
+    {
+        <div class="col-lg-5">
+            <div class="content-card p-3">
+                <h2 class="h5 mb-3">Yorum Ekle</h2>
+                <form method="post" asp-page-handler="AddComment">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <textarea asp-for="NewCommentText" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="NewCommentText" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Yorum Kaydet</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,63 @@
+﻿@page "{id:int}"
+@model ConstructionManagementSystem.Pages.Expenses.EditModel
+@{
+    ViewData["Title"] = "Gider Düzenle";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Gider Düzenle</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <input type="hidden" asp-for="Expense.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Expense.ConstructionProjectId" class="form-label"></label>
+                <select asp-for="Expense.ConstructionProjectId" asp-items="Model.ProjectOptions" class="form-select">
+                    <option value="">Proje seçin</option>
+                </select>
+                <span asp-validation-for="Expense.ConstructionProjectId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Expense.Title" class="form-label"></label>
+                <input asp-for="Expense.Title" class="form-control" />
+                <span asp-validation-for="Expense.Title" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Expense.Category" class="form-label"></label>
+                <select asp-for="Expense.Category" asp-items="Model.CategoryOptions" class="form-select"></select>
+                <span asp-validation-for="Expense.Category" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Expense.Amount" class="form-label"></label>
+                <input asp-for="Expense.Amount" class="form-control" />
+                <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Expense.ExpenseDate" class="form-label"></label>
+                <input asp-for="Expense.ExpenseDate" class="form-control" />
+                <span asp-validation-for="Expense.ExpenseDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Expense.Description" class="form-label"></label>
+            <textarea asp-for="Expense.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Expense.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

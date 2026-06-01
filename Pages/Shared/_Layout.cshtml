@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - İnşaat Şantiye Yönetimi</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ConstructionManagementSystem.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-xl navbar-light bg-white border-bottom shadow-sm mb-4">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand fw-semibold" asp-area="" asp-page="/Index">Şantiye Yönetimi</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Menüyü aç veya kapat">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    @{
+                        var isAuthenticated = User.Identity?.IsAuthenticated == true;
+                        var isViewer = User.IsInRole(BuildTaskFlowRoleNames.Viewer);
+                        var canManageProjects = BuildTaskFlowPermissions.CanManageProjects(User);
+                        var canManageClients = BuildTaskFlowPermissions.CanManageClients(User);
+                        var canManageMaterials = BuildTaskFlowPermissions.CanManageMaterials(User);
+                        var canManageSubcontractors = BuildTaskFlowPermissions.CanManageSubcontractors(User);
+                        var canManageWorkers = BuildTaskFlowPermissions.CanManageWorkers(User);
+                        var canManageFinancialRecords = BuildTaskFlowPermissions.CanManageFinancialRecords(User);
+                        var canUseSqlQueries = BuildTaskFlowPermissions.CanUseSqlQueries(User);
+                    }
+                    <ul class="navbar-nav flex-wrap gap-xl-1">
+                        @if (isAuthenticated)
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/Index">Dashboard</a></li>
+                            @if (canManageProjects || isViewer)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/ConstructionProjects/Index">Projeler</a></li>
+                            }
+                            @if (canManageClients || isViewer)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/Clients/Index">Müşteriler</a></li>
+                            }
+                            @if (canManageMaterials || isViewer)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/Materials/Index">Malzemeler</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/MaterialTypes/Index">Malzeme Türleri</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/Suppliers/Index">Tedarikçiler</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/MaterialPurchases/Index">Malzeme Alımları</a></li>
+                            }
+                            @if (canManageSubcontractors || isViewer)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/Subcontractors/Index">Taşeronlar</a></li>
+                            }
+                            @if (canManageWorkers || isViewer)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/Workers/Index">İşçiler</a></li>
+                            }
+                            @if (canManageFinancialRecords || isViewer)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/WorkerPayments/Index">İşçi Ödemeleri</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/ProjectIncomes/Index">Proje Gelirleri</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/Expenses/Index">Giderler</a></li>
+                            }
+                            @if (canUseSqlQueries)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-page="/SqlQueries/Index">SQL Sorguları</a></li>
+                            }
+                            <li class="nav-item"><a class="nav-link fw-semibold" asp-area="" asp-page="/BuildTaskFlow/Index">BuildTaskFlow</a></li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto align-items-xl-center">
+                        @{
+                            var currentUiCulture = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+                            var returnUrl = $"{Context.Request.PathBase}{Context.Request.Path}{Context.Request.QueryString}";
+                        }
+                        <li class="nav-item me-xl-2 mb-2 mb-xl-0">
+                            <div class="btn-group btn-group-sm language-switcher" role="group" aria-label="Dil seçimi">
+                                <a class="btn @(currentUiCulture == "tr" ? "btn-primary" : "btn-outline-secondary")"
+                                   asp-page="/SetLanguage"
+                                   asp-route-culture="tr"
+                                   asp-route-returnUrl="@returnUrl">TR</a>
+                                <a class="btn @(currentUiCulture == "en" ? "btn-primary" : "btn-outline-secondary")"
+                                   asp-page="/SetLanguage"
+                                   asp-route-culture="en"
+                                   asp-route-returnUrl="@returnUrl">EN</a>
+                            </div>
+                        </li>
+                        @if (isAuthenticated)
+                        {
+                            var displayName = User.Identity?.Name ?? "Kullanıcı";
+                            var roleName = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+                            <li class="nav-item">
+                                <span class="navbar-text small me-2">@displayName (@roleName)</span>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-page="/BuildTaskFlow/Logout" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Çıkış</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-primary btn-sm" asp-area="" asp-page="/BuildTaskFlow/Login">Giriş Yap</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid px-4">
+        @if (TempData["SuccessMessage"] is string successMessage)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @successMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] is string errorMessage)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @errorMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+            </div>
+        }
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-white">
+        <div class="container-fluid px-4">
+            &copy; 2026 - İnşaat Şirketi Şantiye ve Malzeme Yönetim Sistemi
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/i18n.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

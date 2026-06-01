@@ -1,0 +1,28 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio / Rider / VS Code local state
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Core runtime generated files
+App_Data/DataProtectionKeys/
+*.log
+
+# Local database files, if generated in the project folder
+*.mdf
+*.ldf
+*.db
+*.db-shm
+*.db-wal
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

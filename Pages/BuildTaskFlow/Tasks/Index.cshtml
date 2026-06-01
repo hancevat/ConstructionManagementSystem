@@ -1,0 +1,58 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Tasks.IndexModel
+@{
+    ViewData["Title"] = "BuildTaskFlow Görevleri";
+    var canManageTasks = BuildTaskFlowPermissions.CanManageTasks(User);
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Görevler</h1>
+        <p class="text-muted mb-0">Görev durumu, öncelik, teslim tarihi ve atanan ekip üyesi takibi.</p>
+    </div>
+    @if (canManageTasks)
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni Görev</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Görev</th>
+                    <th>Proje</th>
+                    <th>Durum</th>
+                    <th>Öncelik</th>
+                    <th>Teslim</th>
+                    <th>Atanan</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    var isOverdue = task.DueDate.HasValue && task.DueDate.Value.Date < DateTime.Today && task.Status?.Name != "Tamamlandı";
+                    <tr class="@(isOverdue ? "table-warning" : "")">
+                        <td>@task.Title</td>
+                        <td>@task.Project?.Name</td>
+                        <td><span class="badge text-bg-secondary">@task.Status?.Name</span></td>
+                        <td>@task.Priority</td>
+                        <td>@(task.DueDate?.ToString("dd.MM.yyyy") ?? "-")</td>
+                        <td>@string.Join(", ", task.Assignments.Select(item => item.TeamMember?.FullName))</td>
+                        <td>
+                            <div class="actions">
+                                <a class="btn btn-outline-info btn-sm" asp-page="Details" asp-route-id="@task.Id">Detay</a>
+                                @if (canManageTasks)
+                                {
+                                    <a class="btn btn-outline-primary btn-sm" asp-page="Edit" asp-route-id="@task.Id">Düzenle</a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

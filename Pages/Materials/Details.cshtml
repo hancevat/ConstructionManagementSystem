@@ -1,0 +1,29 @@
+﻿@page "{id:int}"
+@model ConstructionManagementSystem.Pages.Materials.DetailsModel
+@{
+    ViewData["Title"] = "Malzeme Detayı";
+    var canManage = BuildTaskFlowPermissions.CanManageMaterials(User);
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Malzeme Detayı</h1>
+    <div class="d-flex gap-2">
+        @if (canManage)
+        {
+            <a class="btn btn-primary" asp-page="Edit" asp-route-id="@Model.Material.Id">Düzenle</a>
+        }
+        <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+    </div>
+</div>
+
+<div class="content-card p-4">
+    <div class="details-grid">
+        <div class="details-item"><div class="details-label">Malzeme</div><div class="details-value">@Model.Material.Name</div></div>
+        <div class="details-item"><div class="details-label">Tür</div><div class="details-value">@Model.Material.MaterialType?.Name</div></div>
+        <div class="details-item"><div class="details-label">Birim</div><div class="details-value">@Model.Material.Unit</div></div>
+        <div class="details-item"><div class="details-label">Birim Fiyat</div><div class="details-value">@Model.Material.UnitPrice.ToString("C")</div></div>
+        <div class="details-item"><div class="details-label">Stok</div><div class="details-value">@Model.Material.StockQuantity.ToString("N2") @Model.Material.Unit</div></div>
+        <div class="details-item"><div class="details-label">Açıklama</div><div class="details-value">@Model.Material.Description</div></div>
+    </div>
+</div>
+

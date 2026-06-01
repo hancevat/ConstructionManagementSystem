@@ -1,0 +1,78 @@
+@page "{id:int}"
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Projects.DetailsModel
+@{
+    ViewData["Title"] = "BuildTaskFlow Proje Detayı";
+    var canManageTasks = BuildTaskFlowPermissions.CanManageTasks(User);
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Proje Detayı</h1>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+        @if (canManageTasks)
+        {
+            <a class="btn btn-primary" asp-page="/BuildTaskFlow/Tasks/Create" asp-route-projectId="@Model.Project.Id">Görev Ekle</a>
+        }
+    </div>
+</div>
+
+<div class="content-card p-4 mb-4">
+    <div class="details-grid">
+        <div class="details-item">
+            <div class="details-label">Proje</div>
+            <div class="details-value">@Model.Project.Name</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Sorumlu</div>
+            <div class="details-value">@Model.Project.OwnerTeamMember?.FullName</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Durum</div>
+            <div class="details-value">@Model.Project.Status</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Başlangıç</div>
+            <div class="details-value">@Model.Project.StartDate.ToString("dd.MM.yyyy")</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Teslim</div>
+            <div class="details-value">@(Model.Project.EndDate?.ToString("dd.MM.yyyy") ?? "-")</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Fatura/Proforma</div>
+            <div class="details-value">@Model.Project.Invoices.Count kayıt</div>
+        </div>
+    </div>
+    <p class="text-muted mt-3 mb-0">@Model.Project.Description</p>
+</div>
+
+<div class="content-card p-3">
+    <h2 class="h5 mb-3">Projeye Bağlı Görevler</h2>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Görev</th>
+                    <th>Durum</th>
+                    <th>Öncelik</th>
+                    <th>Teslim</th>
+                    <th>Atanan</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.Project.Tasks.OrderBy(task => task.DueDate ?? DateTime.MaxValue))
+                {
+                    <tr>
+                        <td>@task.Title</td>
+                        <td><span class="badge text-bg-secondary">@task.Status?.Name</span></td>
+                        <td>@task.Priority</td>
+                        <td>@(task.DueDate?.ToString("dd.MM.yyyy") ?? "-")</td>
+                        <td>@string.Join(", ", task.Assignments.Select(item => item.TeamMember?.FullName))</td>
+                        <td><a class="btn btn-outline-info btn-sm" asp-page="/BuildTaskFlow/Tasks/Details" asp-route-id="@task.Id">Detay</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

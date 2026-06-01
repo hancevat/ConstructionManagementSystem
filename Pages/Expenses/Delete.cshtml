@@ -1,0 +1,22 @@
+﻿@page "{id:int}"
+@model ConstructionManagementSystem.Pages.Expenses.DeleteModel
+@{
+    ViewData["Title"] = "Gider Sil";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Gider Sil</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <div class="alert alert-warning">
+        <strong>@Model.Expense.Title</strong> gider kaydını silmek istediğinizden emin misiniz?
+    </div>
+    <form method="post">
+        <input type="hidden" asp-for="Expense.Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+    </form>
+</div>
+

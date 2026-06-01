@@ -1,0 +1,76 @@
+@page "{id:int}"
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Tasks.EditModel
+@{
+    ViewData["Title"] = "Görev Düzenle";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Görev Düzenle</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <input type="hidden" asp-for="TaskItem.Id" />
+        <input type="hidden" asp-for="TaskItem.CreatedAt" />
+        <input type="hidden" asp-for="TaskItem.CompletedAt" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="TaskItem.Title" class="form-label"></label>
+                <input asp-for="TaskItem.Title" class="form-control" />
+                <span asp-validation-for="TaskItem.Title" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="TaskItem.BuildTaskFlowProjectId" class="form-label"></label>
+                <select asp-for="TaskItem.BuildTaskFlowProjectId" asp-items="Model.ProjectOptions" class="form-select">
+                    <option value="">Proje seçin</option>
+                </select>
+                <span asp-validation-for="TaskItem.BuildTaskFlowProjectId" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label asp-for="TaskItem.BuildTaskFlowTaskStatusId" class="form-label"></label>
+                <select asp-for="TaskItem.BuildTaskFlowTaskStatusId" asp-items="Model.StatusOptions" class="form-select">
+                    <option value="">Durum seçin</option>
+                </select>
+                <span asp-validation-for="TaskItem.BuildTaskFlowTaskStatusId" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label asp-for="TaskItem.Priority" class="form-label"></label>
+                <select asp-for="TaskItem.Priority" class="form-select">
+                    @foreach (var priority in Model.PriorityOptions)
+                    {
+                        <option value="@priority">@priority</option>
+                    }
+                </select>
+                <span asp-validation-for="TaskItem.Priority" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label asp-for="TaskItem.DueDate" class="form-label"></label>
+                <input asp-for="TaskItem.DueDate" class="form-control" />
+                <span asp-validation-for="TaskItem.DueDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label asp-for="AssignedTeamMemberId" class="form-label">Atanan Ekip Üyesi</label>
+                <select asp-for="AssignedTeamMemberId" asp-items="Model.MemberOptions" class="form-select">
+                    <option value="">Atama yok</option>
+                </select>
+                <span asp-validation-for="AssignedTeamMemberId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TaskItem.Description" class="form-label"></label>
+            <textarea asp-for="TaskItem.Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="TaskItem.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

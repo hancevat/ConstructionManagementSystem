@@ -1,0 +1,83 @@
+@page
+@model ConstructionManagementSystem.Pages.SqlQueries.IndexModel
+@{
+    ViewData["Title"] = "SQL Sorgu Ekranı";
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">SQL Sorgu Ekranı</h1>
+        <p class="text-muted mb-0">Güvenli, sadece okuma amaçlı SQL sorgu alanı.</p>
+    </div>
+    <a class="btn btn-outline-secondary" asp-page="/Index">Dashboard'a Dön</a>
+</div>
+
+<div class="row g-3">
+    <div class="col-xl-3">
+        <div class="content-card p-3">
+            <h2 class="h6 mb-3">Hazır Sorgular</h2>
+            <div class="d-grid gap-2">
+                @foreach (var sample in Model.Samples)
+                {
+                    <a class="btn btn-outline-primary btn-sm text-start" asp-page="./Index" asp-route-sample="@sample.Key">@sample.Title</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9">
+        <div class="content-card p-4">
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger">@Model.ErrorMessage</div>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+            {
+                <div class="alert alert-success">@Model.SuccessMessage</div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="SqlQuery" class="form-label">SQL Sorgusu</label>
+                    <textarea asp-for="SqlQuery" class="form-control font-monospace" rows="9"></textarea>
+                </div>
+                <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <button type="submit" class="btn btn-primary">Sorguyu Çalıştır</button>
+                    <span class="text-muted small">Bu ekranda sadece tek bir SELECT sorgusu çalıştırılır.</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (Model.Columns.Any())
+{
+    <div class="content-card mt-4 p-3">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h2 class="h5 mb-0">Sorgu Sonucu</h2>
+            <span class="text-muted small">En fazla 200 satır gösterilir.</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover mb-0">
+                <thead>
+                    <tr>
+                        @foreach (var column in Model.Columns)
+                        {
+                            <th>@column</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Rows)
+                    {
+                        <tr>
+                            @foreach (var value in row)
+                            {
+                                <td>@value</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

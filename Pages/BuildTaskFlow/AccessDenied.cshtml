@@ -1,0 +1,11 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.AccessDeniedModel
+@{
+    ViewData["Title"] = "Yetkisiz Erişim";
+}
+
+<div class="content-card p-4">
+    <h1 class="h4 text-danger">Yetkisiz Erişim</h1>
+    <p class="text-muted">Bu sayfayı görüntülemek için rolünüz yeterli değil.</p>
+    <a class="btn btn-outline-secondary" asp-page="/BuildTaskFlow/Index">BuildTaskFlow Dashboard</a>
+</div>

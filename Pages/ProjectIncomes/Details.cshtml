@@ -1,0 +1,20 @@
+﻿@page "{id:int}"
+@model ConstructionManagementSystem.Pages.ProjectIncomes.DetailsModel
+@{
+    ViewData["Title"] = "Proje Geliri Detayı";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Proje Geliri Detayı</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card p-4">
+    <div class="details-grid">
+        <div class="details-item"><div class="details-label">Proje</div><div class="details-value">@Model.ProjectIncome.ConstructionProject?.Name</div></div>
+        <div class="details-item"><div class="details-label">Tarih</div><div class="details-value">@Model.ProjectIncome.IncomeDate.ToString("dd.MM.yyyy")</div></div>
+        <div class="details-item"><div class="details-label">Tutar</div><div class="details-value">@Model.ProjectIncome.Amount.ToString("C")</div></div>
+        <div class="details-item"><div class="details-label">Açıklama</div><div class="details-value">@Model.ProjectIncome.Description</div></div>
+    </div>
+</div>
+

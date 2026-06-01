@@ -1,0 +1,31 @@
+﻿@page "{id:int}"
+@model ConstructionManagementSystem.Pages.ConstructionProjects.DetailsModel
+@{
+    ViewData["Title"] = "Proje Detayı";
+    var canManage = BuildTaskFlowPermissions.CanManageProjects(User);
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Proje Detayı</h1>
+    <div class="d-flex gap-2">
+        @if (canManage)
+        {
+            <a class="btn btn-primary" asp-page="Edit" asp-route-id="@Model.ConstructionProject.Id">Düzenle</a>
+        }
+        <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+    </div>
+</div>
+
+<div class="content-card p-4">
+    <div class="details-grid">
+        <div class="details-item"><div class="details-label">Proje</div><div class="details-value">@Model.ConstructionProject.Name</div></div>
+        <div class="details-item"><div class="details-label">Müşteri</div><div class="details-value">@Model.ConstructionProject.Client?.CompanyName</div></div>
+        <div class="details-item"><div class="details-label">Lokasyon</div><div class="details-value">@Model.ConstructionProject.Location</div></div>
+        <div class="details-item"><div class="details-label">Durum</div><div class="details-value">@Model.ConstructionProject.Status</div></div>
+        <div class="details-item"><div class="details-label">Sözleşme Bedeli</div><div class="details-value">@Model.ConstructionProject.ContractAmount.ToString("C")</div></div>
+        <div class="details-item"><div class="details-label">Başlangıç</div><div class="details-value">@Model.ConstructionProject.StartDate.ToString("dd.MM.yyyy")</div></div>
+        <div class="details-item"><div class="details-label">Bitiş</div><div class="details-value">@(Model.ConstructionProject.EndDate?.ToString("dd.MM.yyyy") ?? "-")</div></div>
+        <div class="details-item"><div class="details-label">Açıklama</div><div class="details-value">@Model.ConstructionProject.Description</div></div>
+    </div>
+</div>
+

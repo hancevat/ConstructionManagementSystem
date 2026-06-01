@@ -1,0 +1,57 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.Workers.CreateModel
+@{
+    ViewData["Title"] = "Yeni İşçi Ekle";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni İşçi Ekle</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Worker.FullName" class="form-label"></label>
+            <input asp-for="Worker.FullName" class="form-control" />
+            <span asp-validation-for="Worker.FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Worker.Phone" class="form-label"></label>
+            <input asp-for="Worker.Phone" class="form-control" />
+            <span asp-validation-for="Worker.Phone" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Worker.JobTitle" class="form-label"></label>
+            <input asp-for="Worker.JobTitle" class="form-control" />
+            <span asp-validation-for="Worker.JobTitle" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Worker.DailyWage" class="form-label"></label>
+            <input asp-for="Worker.DailyWage" class="form-control" />
+            <span asp-validation-for="Worker.DailyWage" class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="Worker.IsActive" class="form-check-input" />
+            <label asp-for="Worker.IsActive" class="form-check-label"></label>
+            <span asp-validation-for="Worker.IsActive" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

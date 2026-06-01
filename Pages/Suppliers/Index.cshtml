@@ -1,0 +1,54 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.Suppliers.IndexModel
+@{
+    ViewData["Title"] = "Tedarikçiler";
+    var canManage = BuildTaskFlowPermissions.CanManageMaterials(User);
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Tedarikçiler</h1>
+        <p class="text-muted mb-0">Malzeme alınan tedarikçi firmalar.</p>
+    </div>
+    @if (canManage)
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni Tedarikçi Ekle</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Firma</th>
+                    <th>Yetkili</th>
+                    <th>Telefon</th>
+                    <th>Adres</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Suppliers)
+                {
+                    <tr>
+                        <td>@item.CompanyName</td>
+                        <td>@item.ContactName</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Address</td>
+                        <td>
+                            <div class="actions">
+                                @if (canManage)
+                                {
+                                    <a class="btn btn-outline-primary btn-sm" asp-page="Edit" asp-route-id="@item.Id">Düzenle</a>
+                                    <a class="btn btn-outline-danger btn-sm" asp-page="Delete" asp-route-id="@item.Id">Sil</a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

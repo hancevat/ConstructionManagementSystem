@@ -1,0 +1,87 @@
+@page "{id:int}"
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Invoices.DetailsModel
+@{
+    ViewData["Title"] = "Proforma/Fatura Taslağı";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Proforma/Fatura Taslağı</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card p-4">
+    <div class="d-flex justify-content-between align-items-start gap-3 border-bottom pb-3 mb-4">
+        <div>
+            <h2 class="h4 mb-1">BuildTaskFlow</h2>
+            <div class="text-muted">İnşaat Projesi Görev Yönetim Sistemi</div>
+            <span class="badge text-bg-warning mt-2">Resmi fatura değildir</span>
+        </div>
+        <div class="text-end">
+            <div class="h5 mb-1">@Model.Invoice.InvoiceNumber</div>
+            <div>Fatura Tarihi: @Model.Invoice.InvoiceDate.ToString("dd.MM.yyyy")</div>
+            <div>Vade Tarihi: @(Model.Invoice.DueDate?.ToString("dd.MM.yyyy") ?? "-")</div>
+            <div>Durum: @Model.Invoice.Status</div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="details-label">Müşteri / Firma</div>
+            <div class="details-value">@Model.Invoice.CustomerTitle</div>
+        </div>
+        <div class="col-md-6">
+            <div class="details-label">İlgili Proje</div>
+            <div class="details-value">@Model.Invoice.Project?.Name</div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Kalem Açıklaması</th>
+                    <th class="text-end">Miktar</th>
+                    <th class="text-end">Birim Fiyat</th>
+                    <th class="text-end">Tutar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Invoice.Items)
+                {
+                    <tr>
+                        <td>@item.Description</td>
+                        <td class="text-end">@item.Quantity.ToString("N2")</td>
+                        <td class="text-end">@item.UnitPrice.ToString("C")</td>
+                        <td class="text-end">@item.LineTotal.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-end">
+        <div class="col-md-5">
+            <table class="table table-sm">
+                <tr>
+                    <th>Ara Toplam</th>
+                    <td class="text-end">@Model.Invoice.SubTotal.ToString("C")</td>
+                </tr>
+                <tr>
+                    <th>KDV (@Model.Invoice.TaxRate.ToString("N2")%)</th>
+                    <td class="text-end">@Model.Invoice.TaxAmount.ToString("C")</td>
+                </tr>
+                <tr class="table-light">
+                    <th>Genel Toplam</th>
+                    <td class="text-end fw-bold">@Model.Invoice.GrandTotal.ToString("C")</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Invoice.Notes))
+    {
+        <div class="alert alert-secondary mt-3 mb-0">
+            @Model.Invoice.Notes
+        </div>
+    }
+</div>

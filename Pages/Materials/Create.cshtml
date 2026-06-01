@@ -1,0 +1,62 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.Materials.CreateModel
+@{
+    ViewData["Title"] = "Yeni Malzeme Ekle";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni Malzeme Ekle</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Material.Name" class="form-label"></label>
+                <input asp-for="Material.Name" class="form-control" />
+                <span asp-validation-for="Material.Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Material.MaterialTypeId" class="form-label"></label>
+                <select asp-for="Material.MaterialTypeId" asp-items="Model.MaterialTypeOptions" class="form-select">
+                    <option value="">Malzeme türü seçin</option>
+                </select>
+                <span asp-validation-for="Material.MaterialTypeId" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Material.Unit" class="form-label"></label>
+                <input asp-for="Material.Unit" class="form-control" />
+                <span asp-validation-for="Material.Unit" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Material.UnitPrice" class="form-label"></label>
+                <input asp-for="Material.UnitPrice" class="form-control" />
+                <span asp-validation-for="Material.UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Material.StockQuantity" class="form-label"></label>
+                <input asp-for="Material.StockQuantity" class="form-control" />
+                <span asp-validation-for="Material.StockQuantity" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Material.Description" class="form-label"></label>
+            <textarea asp-for="Material.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Material.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

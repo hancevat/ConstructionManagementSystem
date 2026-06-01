@@ -1,0 +1,110 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.IndexModel
+@{
+    ViewData["Title"] = "BuildTaskFlow Dashboard";
+    var canManageTasks = BuildTaskFlowPermissions.CanManageTasks(User);
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">BuildTaskFlow</h1>
+        <p class="text-muted mb-0">İnşaat projesi görev yönetimi, rol takibi ve proforma/fatura taslakları.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-secondary" asp-page="/BuildTaskFlow/TeamMembers/Index">Ekip</a>
+        <a class="btn btn-outline-secondary" asp-page="/BuildTaskFlow/Projects/Index">Projeler</a>
+        <a class="btn btn-primary" asp-page="/BuildTaskFlow/Tasks/Index">Görevler</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Proje Sayısı</div>
+            <div class="stat-value">@Model.TotalProjects</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Görev</div>
+            <div class="stat-value">@Model.TotalTasks</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Devam Eden Görev</div>
+            <div class="stat-value text-primary">@Model.ActiveTasks</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Tamamlanan Görev</div>
+            <div class="stat-value text-success">@Model.CompletedTasks</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Geciken Görev</div>
+            <div class="stat-value @(Model.OverdueTasks > 0 ? "text-danger" : "text-success")">@Model.OverdueTasks</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Aktif Ekip Üyesi</div>
+            <div class="stat-value">@Model.TeamMembers</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Taslak Proforma Toplamı</div>
+            <div class="stat-value">@Model.DraftInvoiceTotal.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Giriş Yapan Rol</div>
+            <div class="stat-value fs-5">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</div>
+        </div>
+    </div>
+</div>
+
+<div class="content-card mt-4 p-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="h5 mb-0">Yakın Görevler</h2>
+        @if (canManageTasks)
+        {
+            <a class="btn btn-outline-secondary btn-sm" asp-page="/BuildTaskFlow/Tasks/Create">Yeni Görev</a>
+        }
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Görev</th>
+                    <th>Proje</th>
+                    <th>Durum</th>
+                    <th>Öncelik</th>
+                    <th>Teslim</th>
+                    <th>Atanan</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.RecentTasks)
+                {
+                    <tr>
+                        <td>@task.Title</td>
+                        <td>@task.Project?.Name</td>
+                        <td><span class="badge text-bg-secondary">@task.Status?.Name</span></td>
+                        <td>@task.Priority</td>
+                        <td>@(task.DueDate?.ToString("dd.MM.yyyy") ?? "-")</td>
+                        <td>@string.Join(", ", task.Assignments.Select(item => item.TeamMember?.FullName))</td>
+                        <td>
+                            <a class="btn btn-outline-info btn-sm" asp-page="/BuildTaskFlow/Tasks/Details" asp-route-id="@task.Id">Detay</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

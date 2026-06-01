@@ -1,0 +1,56 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.Workers.IndexModel
+@{
+    ViewData["Title"] = "İşçiler";
+    var canManage = BuildTaskFlowPermissions.CanManageWorkers(User);
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">İşçiler</h1>
+        <p class="text-muted mb-0">Şirket bünyesindeki işçi ve usta kayıtları.</p>
+    </div>
+    @if (canManage)
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni İşçi Ekle</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>Görev</th>
+                    <th>Telefon</th>
+                    <th>Günlük Ücret</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Workers)
+                {
+                    <tr>
+                        <td>@item.FullName</td>
+                        <td>@item.JobTitle</td>
+                        <td>@item.Phone</td>
+                        <td>@item.DailyWage.ToString("C")</td>
+                        <td>@(item.IsActive ? "Aktif" : "Pasif")</td>
+                        <td>
+                            <div class="actions">
+                                @if (canManage)
+                                {
+                                    <a class="btn btn-outline-primary btn-sm" asp-page="Edit" asp-route-id="@item.Id">Düzenle</a>
+                                    <a class="btn btn-outline-danger btn-sm" asp-page="Delete" asp-route-id="@item.Id">Sil</a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

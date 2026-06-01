@@ -1,0 +1,51 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.ProjectIncomes.CreateModel
+@{
+    ViewData["Title"] = "Yeni Proje Geliri";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni Proje Geliri</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ProjectIncome.ConstructionProjectId" class="form-label"></label>
+                <select asp-for="ProjectIncome.ConstructionProjectId" asp-items="Model.ProjectOptions" class="form-select">
+                    <option value="">Proje seçin</option>
+                </select>
+                <span asp-validation-for="ProjectIncome.ConstructionProjectId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ProjectIncome.IncomeDate" class="form-label"></label>
+                <input asp-for="ProjectIncome.IncomeDate" class="form-control" />
+                <span asp-validation-for="ProjectIncome.IncomeDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ProjectIncome.Amount" class="form-label"></label>
+                <input asp-for="ProjectIncome.Amount" class="form-control" />
+                <span asp-validation-for="ProjectIncome.Amount" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProjectIncome.Description" class="form-label"></label>
+            <textarea asp-for="ProjectIncome.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="ProjectIncome.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

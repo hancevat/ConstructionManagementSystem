@@ -1,0 +1,64 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Projects.CreateModel
+@{
+    ViewData["Title"] = "BuildTaskFlow Proje Ekle";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni BuildTaskFlow Projesi</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Project.Name" class="form-label"></label>
+                <input asp-for="Project.Name" class="form-control" />
+                <span asp-validation-for="Project.Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Project.OwnerTeamMemberId" class="form-label"></label>
+                <select asp-for="Project.OwnerTeamMemberId" asp-items="Model.OwnerOptions" class="form-select">
+                    <option value="">Sorumlu seçin</option>
+                </select>
+                <span asp-validation-for="Project.OwnerTeamMemberId" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Project.StartDate" class="form-label"></label>
+                <input asp-for="Project.StartDate" class="form-control" />
+                <span asp-validation-for="Project.StartDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Project.EndDate" class="form-label"></label>
+                <input asp-for="Project.EndDate" class="form-control" />
+                <span asp-validation-for="Project.EndDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="Project.Status" class="form-label"></label>
+                <select asp-for="Project.Status" class="form-select">
+                    @foreach (var status in Model.StatusOptions)
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+                <span asp-validation-for="Project.Status" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Project.Description" class="form-label"></label>
+            <textarea asp-for="Project.Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Project.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

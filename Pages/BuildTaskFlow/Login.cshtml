@@ -1,0 +1,91 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.LoginModel
+@{
+    ViewData["Title"] = "Sistem Girişi";
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Sistem Girişi</h1>
+        <p class="text-muted mb-0">İnşaat otomasyonu ve BuildTaskFlow ekranlarına rolünüze göre giriş yapın.</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="content-card form-card p-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="form-label"></label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="form-label"></label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-check mb-4">
+                    <input asp-for="Input.RememberMe" class="form-check-input" />
+                    <label asp-for="Input.RememberMe" class="form-check-label"></label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="content-card p-4">
+            <h2 class="h5">Örnek kullanıcılar</h2>
+            <p class="text-muted">Tüm örnek kullanıcıların şifresi aynıdır: <strong>123456</strong></p>
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>E-posta</th>
+                            <th>Yetki Özeti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Yönetici</td>
+                            <td>admin@buildtaskflow.local</td>
+                            <td>Tüm ekranlara erişir.</td>
+                        </tr>
+                        <tr>
+                            <td>Proje Sorumlusu</td>
+                            <td>proje@buildtaskflow.local</td>
+                            <td>Proje ve görev yönetir.</td>
+                        </tr>
+                        <tr>
+                            <td>Şantiye Şefi</td>
+                            <td>santiyesefi@buildtaskflow.local</td>
+                            <td>Projeleri, işçileri ve saha görevlerini takip eder.</td>
+                        </tr>
+                        <tr>
+                            <td>Depo / Malzeme Sorumlusu</td>
+                            <td>depo@buildtaskflow.local</td>
+                            <td>Malzeme, stok, tedarikçi ve görev takibi yapar.</td>
+                        </tr>
+                        <tr>
+                            <td>Muhasebe</td>
+                            <td>muhasebe@buildtaskflow.local</td>
+                            <td>Finans kayıtlarını ve fatura/proforma taslaklarını yönetir.</td>
+                        </tr>
+                        <tr>
+                            <td>Görüntüleyici</td>
+                            <td>goruntuleyici@buildtaskflow.local</td>
+                            <td>Sadece görüntüleme yapar.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

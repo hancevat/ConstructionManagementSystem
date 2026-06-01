@@ -1,0 +1,58 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.WorkerPayments.CreateModel
+@{
+    ViewData["Title"] = "Yeni İşçi Ödemesi";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni İşçi Ödemesi</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="WorkerPayment.WorkerId" class="form-label"></label>
+                <select asp-for="WorkerPayment.WorkerId" asp-items="Model.WorkerOptions" class="form-select">
+                    <option value="">İşçi seçin</option>
+                </select>
+                <span asp-validation-for="WorkerPayment.WorkerId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="WorkerPayment.ConstructionProjectId" class="form-label"></label>
+                <select asp-for="WorkerPayment.ConstructionProjectId" asp-items="Model.ProjectOptions" class="form-select">
+                    <option value="">Proje seçin</option>
+                </select>
+                <span asp-validation-for="WorkerPayment.ConstructionProjectId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="WorkerPayment.PaymentDate" class="form-label"></label>
+                <input asp-for="WorkerPayment.PaymentDate" class="form-control" />
+                <span asp-validation-for="WorkerPayment.PaymentDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="WorkerPayment.WorkDays" class="form-label"></label>
+                <input asp-for="WorkerPayment.WorkDays" class="form-control" />
+                <span asp-validation-for="WorkerPayment.WorkDays" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="WorkerPayment.Description" class="form-label"></label>
+            <textarea asp-for="WorkerPayment.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="WorkerPayment.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

@@ -1,0 +1,57 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Projects.IndexModel
+@{
+    ViewData["Title"] = "BuildTaskFlow Projeleri";
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">BuildTaskFlow Projeleri</h1>
+        <p class="text-muted mb-0">Proje planları, sorumlular ve görev durumu takibi.</p>
+    </div>
+    @if (User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Admin) || User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.ProjectManager))
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni Proje</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Proje</th>
+                    <th>Sorumlu</th>
+                    <th>Durum</th>
+                    <th>Başlangıç</th>
+                    <th>Teslim</th>
+                    <th>Görev</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.Projects)
+                {
+                    var completedTasks = project.Tasks.Count(task => task.Status?.Name == "Tamamlandı");
+                    <tr>
+                        <td>@project.Name</td>
+                        <td>@project.OwnerTeamMember?.FullName</td>
+                        <td><span class="badge text-bg-primary">@project.Status</span></td>
+                        <td>@project.StartDate.ToString("dd.MM.yyyy")</td>
+                        <td>@(project.EndDate?.ToString("dd.MM.yyyy") ?? "-")</td>
+                        <td>@completedTasks / @project.Tasks.Count tamamlandı</td>
+                        <td>
+                            <div class="actions">
+                                <a class="btn btn-outline-info btn-sm" asp-page="Details" asp-route-id="@project.Id">Detay</a>
+                                @if (User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Admin) || User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.ProjectManager))
+                                {
+                                    <a class="btn btn-outline-primary btn-sm" asp-page="Edit" asp-route-id="@project.Id">Düzenle</a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

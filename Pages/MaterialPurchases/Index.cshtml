@@ -1,0 +1,54 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.MaterialPurchases.IndexModel
+@{
+    ViewData["Title"] = "Malzeme Alımları";
+    var canManage = BuildTaskFlowPermissions.CanManageMaterials(User);
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Malzeme Alımları</h1>
+        <p class="text-muted mb-0">Projeler için yapılan malzeme alım kayıtları.</p>
+    </div>
+    @if (canManage)
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni Malzeme Alımı</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Tarih</th>
+                    <th>Proje</th>
+                    <th>Malzeme</th>
+                    <th>Tedarikçi</th>
+                    <th>Miktar</th>
+                    <th>Toplam</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MaterialPurchases)
+                {
+                    <tr>
+                        <td>@item.PurchaseDate.ToString("dd.MM.yyyy")</td>
+                        <td>@item.ConstructionProject?.Name</td>
+                        <td>@item.Material?.Name</td>
+                        <td>@item.Supplier?.CompanyName</td>
+                        <td>@item.Quantity.ToString("N2") @item.Material?.Unit</td>
+                        <td>@item.TotalAmount.ToString("C")</td>
+                        <td>
+                            <div class="actions">
+                                <a class="btn btn-outline-info btn-sm" asp-page="Details" asp-route-id="@item.Id">Detay</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

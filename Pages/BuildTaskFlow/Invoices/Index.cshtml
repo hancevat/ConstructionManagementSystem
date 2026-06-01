@@ -1,0 +1,52 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Invoices.IndexModel
+@{
+    ViewData["Title"] = "Proforma/Fatura Taslakları";
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Proforma/Fatura Taslakları</h1>
+        <p class="text-muted mb-0">Resmi fatura değildir; operasyon takibi için tarihli, numaralı ve kalemli taslak kaydıdır.</p>
+    </div>
+    @if (User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Admin) || User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Accounting))
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni Taslak</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Proje</th>
+                    <th>Müşteri</th>
+                    <th>Tarih</th>
+                    <th>Vade</th>
+                    <th>Durum</th>
+                    <th>Genel Toplam</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var invoice in Model.Invoices)
+                {
+                    <tr>
+                        <td>@invoice.InvoiceNumber</td>
+                        <td>@invoice.Project?.Name</td>
+                        <td>@invoice.CustomerTitle</td>
+                        <td>@invoice.InvoiceDate.ToString("dd.MM.yyyy")</td>
+                        <td>@(invoice.DueDate?.ToString("dd.MM.yyyy") ?? "-")</td>
+                        <td><span class="badge text-bg-secondary">@invoice.Status</span></td>
+                        <td>@invoice.GrandTotal.ToString("C")</td>
+                        <td>
+                            <a class="btn btn-outline-info btn-sm" asp-page="Details" asp-route-id="@invoice.Id">Detay</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

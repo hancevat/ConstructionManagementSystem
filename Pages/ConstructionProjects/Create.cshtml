@@ -1,0 +1,77 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.ConstructionProjects.CreateModel
+@{
+    ViewData["Title"] = "Yeni Proje Ekle";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni Proje Ekle</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ConstructionProject.Name" class="form-label"></label>
+                <input asp-for="ConstructionProject.Name" class="form-control" />
+                <span asp-validation-for="ConstructionProject.Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ConstructionProject.ClientId" class="form-label"></label>
+                <select asp-for="ConstructionProject.ClientId" asp-items="Model.ClientOptions" class="form-select">
+                    <option value="">Müşteri seçin</option>
+                </select>
+                <span asp-validation-for="ConstructionProject.ClientId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ConstructionProject.Location" class="form-label"></label>
+                <input asp-for="ConstructionProject.Location" class="form-control" />
+                <span asp-validation-for="ConstructionProject.Location" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ConstructionProject.Status" class="form-label"></label>
+                <select asp-for="ConstructionProject.Status" class="form-select">
+                    <option>Aktif</option>
+                    <option>Tamamlandı</option>
+                    <option>Beklemede</option>
+                    <option>İptal</option>
+                </select>
+                <span asp-validation-for="ConstructionProject.Status" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="ConstructionProject.StartDate" class="form-label"></label>
+                <input asp-for="ConstructionProject.StartDate" class="form-control" />
+                <span asp-validation-for="ConstructionProject.StartDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="ConstructionProject.EndDate" class="form-label"></label>
+                <input asp-for="ConstructionProject.EndDate" class="form-control" />
+                <span asp-validation-for="ConstructionProject.EndDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="ConstructionProject.ContractAmount" class="form-label"></label>
+                <input asp-for="ConstructionProject.ContractAmount" class="form-control" />
+                <span asp-validation-for="ConstructionProject.ContractAmount" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ConstructionProject.Description" class="form-label"></label>
+            <textarea asp-for="ConstructionProject.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="ConstructionProject.Description" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

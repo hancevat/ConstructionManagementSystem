@@ -1,0 +1,57 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.TeamMembers.IndexModel
+@{
+    ViewData["Title"] = "BuildTaskFlow Ekip";
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Ekip Üyeleri ve Roller</h1>
+        <p class="text-muted mb-0">BuildTaskFlow giriş kullanıcıları ve rol bazlı yetki takibi.</p>
+    </div>
+    @if (User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Admin))
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni Kullanıcı</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>E-posta</th>
+                    <th>Rol</th>
+                    <th>Telefon</th>
+                    <th>Atanan Görev</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in Model.TeamMembers)
+                {
+                    <tr>
+                        <td>@member.FullName</td>
+                        <td>@member.Email</td>
+                        <td><span class="badge text-bg-dark">@member.Role?.Name</span></td>
+                        <td>@member.Phone</td>
+                        <td>@member.TaskAssignments.Count</td>
+                        <td>
+                            <span class="badge @(member.IsActive ? "text-bg-success" : "text-bg-secondary")">
+                                @(member.IsActive ? "Aktif" : "Pasif")
+                            </span>
+                        </td>
+                        <td>
+                            @if (User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Admin))
+                            {
+                                <a class="btn btn-outline-primary btn-sm" asp-page="Edit" asp-route-id="@member.Id">Düzenle</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

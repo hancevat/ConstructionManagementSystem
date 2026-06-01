@@ -1,0 +1,105 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+    var canManageProjects = BuildTaskFlowPermissions.CanManageProjects(User);
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Dashboard</h1>
+        <p class="text-muted mb-0">Proje, gelir, malzeme, işçilik ve şantiye giderlerinin genel özeti.</p>
+    </div>
+    @if (canManageProjects)
+    {
+        <a class="btn btn-primary" asp-page="/ConstructionProjects/Create">Yeni Proje Ekle</a>
+    }
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Proje Sayısı</div>
+            <div class="stat-value">@Model.TotalProjects</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Aktif Proje Sayısı</div>
+            <div class="stat-value text-primary">@Model.ActiveProjects</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Sözleşme Bedeli</div>
+            <div class="stat-value">@Model.TotalContractAmount.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Net Kar / Zarar</div>
+            <div class="stat-value @(Model.NetProfit >= 0 ? "text-success" : "text-danger")">@Model.NetProfit.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Proje Geliri</div>
+            <div class="stat-value text-success">@Model.TotalProjectIncome.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Malzeme Alım Maliyeti</div>
+            <div class="stat-value">@Model.TotalMaterialPurchaseCost.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam İşçi Ödemesi</div>
+            <div class="stat-value">@Model.TotalWorkerPayment.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Gider</div>
+            <div class="stat-value">@Model.TotalExpense.ToString("C")</div>
+        </div>
+    </div>
+</div>
+
+<div class="content-card mt-4 p-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="h5 mb-0">Son Projeler</h2>
+        <a class="btn btn-outline-secondary btn-sm" asp-page="/ConstructionProjects/Index">Tümünü Gör</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Proje</th>
+                    <th>Müşteri</th>
+                    <th>Lokasyon</th>
+                    <th>Durum</th>
+                    <th>Sözleşme Bedeli</th>
+                    <th>Başlangıç</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.RecentProjects)
+                {
+                    <tr>
+                        <td>@project.Name</td>
+                        <td>@project.Client?.CompanyName</td>
+                        <td>@project.Location</td>
+                        <td>
+                            <span class="badge @(project.Status == "Aktif" ? "text-bg-primary" : "text-bg-success")">@project.Status</span>
+                        </td>
+                        <td>@project.ContractAmount.ToString("C")</td>
+                        <td>@project.StartDate.ToString("dd.MM.yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

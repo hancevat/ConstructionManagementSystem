@@ -1,0 +1,51 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.Suppliers.CreateModel
+@{
+    ViewData["Title"] = "Yeni Tedarikçi Ekle";
+}
+
+<div class="page-heading">
+    <h1 class="h3 mb-0">Yeni Tedarikçi Ekle</h1>
+    <a class="btn btn-outline-secondary" asp-page="Index">Listeye Dön</a>
+</div>
+
+<div class="content-card form-card p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Supplier.CompanyName" class="form-label"></label>
+            <input asp-for="Supplier.CompanyName" class="form-control" />
+            <span asp-validation-for="Supplier.CompanyName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Supplier.ContactName" class="form-label"></label>
+            <input asp-for="Supplier.ContactName" class="form-control" />
+            <span asp-validation-for="Supplier.ContactName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Supplier.Phone" class="form-label"></label>
+            <input asp-for="Supplier.Phone" class="form-control" />
+            <span asp-validation-for="Supplier.Phone" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Supplier.Address" class="form-label"></label>
+            <textarea asp-for="Supplier.Address" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Supplier.Address" class="text-danger"></span>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-page="Index">Vazgeç</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

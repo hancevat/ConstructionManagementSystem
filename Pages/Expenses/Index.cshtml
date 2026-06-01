@@ -1,0 +1,56 @@
+﻿@page
+@model ConstructionManagementSystem.Pages.Expenses.IndexModel
+@{
+    ViewData["Title"] = "Giderler";
+    var canManage = BuildTaskFlowPermissions.CanManageFinancialRecords(User);
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">Giderler</h1>
+        <p class="text-muted mb-0">Yemek, nakliye, yakıt, elektrik ve diğer şantiye giderleri.</p>
+    </div>
+    @if (canManage)
+    {
+        <a class="btn btn-primary" asp-page="Create">Yeni Gider Ekle</a>
+    }
+</div>
+
+<div class="content-card p-3">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Tarih</th>
+                    <th>Proje</th>
+                    <th>Başlık</th>
+                    <th>Kategori</th>
+                    <th>Tutar</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Expenses)
+                {
+                    <tr>
+                        <td>@item.ExpenseDate.ToString("dd.MM.yyyy")</td>
+                        <td>@item.ConstructionProject?.Name</td>
+                        <td>@item.Title</td>
+                        <td>@item.Category</td>
+                        <td>@item.Amount.ToString("C")</td>
+                        <td>
+                            <div class="actions">
+                                @if (canManage)
+                                {
+                                    <a class="btn btn-outline-primary btn-sm" asp-page="Edit" asp-route-id="@item.Id">Düzenle</a>
+                                    <a class="btn btn-outline-danger btn-sm" asp-page="Delete" asp-route-id="@item.Id">Sil</a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
