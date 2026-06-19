@@ -53,6 +53,16 @@ BuildTaskFlow adds a simple role-based workflow on top of the main system. Team 
 - `BuildTaskFlowInvoices`: proforma/invoice draft headers
 - `BuildTaskFlowInvoiceItems`: proforma/invoice draft line items
 
+## ER Diagrams
+
+### Construction Management ER Diagram
+
+![Construction Management ER Diagram](ana-insaat-er-diagrami.svg)
+
+### BuildTaskFlow ER Diagram
+
+![BuildTaskFlow ER Diagram](buildtaskflow-er-diagrami.svg)
+
 ## Features
 
 - Login screen with role-based access
