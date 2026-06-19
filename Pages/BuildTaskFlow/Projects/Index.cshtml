@@ -9,10 +9,13 @@
         <h1 class="h3 mb-1">BuildTaskFlow Projeleri</h1>
         <p class="text-muted mb-0">Proje planları, sorumlular ve görev durumu takibi.</p>
     </div>
-    @if (User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Admin) || User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.ProjectManager))
-    {
-        <a class="btn btn-primary" asp-page="Create">Yeni Proje</a>
-    }
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-primary" asp-page="/BuildTaskFlow/Gantt/Index">Gantt</a>
+        @if (User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.Admin) || User.IsInRole(ConstructionManagementSystem.Models.BuildTaskFlowRoleNames.ProjectManager))
+        {
+            <a class="btn btn-primary" asp-page="Create">Yeni Proje</a>
+        }
+    </div>
 </div>
 
 <div class="content-card p-3">
@@ -26,6 +29,7 @@
                     <th>Başlangıç</th>
                     <th>Teslim</th>
                     <th>Görev</th>
+                    <th>Tamamlanma</th>
                     <th>İşlemler</th>
                 </tr>
             </thead>
@@ -33,6 +37,9 @@
                 @foreach (var project in Model.Projects)
                 {
                     var completedTasks = project.Tasks.Count(task => task.Status?.Name == "Tamamlandı");
+                    var progress = project.Tasks.Any()
+                        ? (int)Math.Round(project.Tasks.Average(task => task.ProgressPercentage))
+                        : 0;
                     <tr>
                         <td>@project.Name</td>
                         <td>@project.OwnerTeamMember?.FullName</td>
@@ -40,6 +47,11 @@
                         <td>@project.StartDate.ToString("dd.MM.yyyy")</td>
                         <td>@(project.EndDate?.ToString("dd.MM.yyyy") ?? "-")</td>
                         <td>@completedTasks / @project.Tasks.Count tamamlandı</td>
+                        <td style="min-width: 140px;">
+                            <div class="progress progress-thin" role="progressbar" aria-valuenow="@progress" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: @progress%">@progress%</div>
+                            </div>
+                        </td>
                         <td>
                             <div class="actions">
                                 <a class="btn btn-outline-info btn-sm" asp-page="Details" asp-route-id="@project.Id">Detay</a>

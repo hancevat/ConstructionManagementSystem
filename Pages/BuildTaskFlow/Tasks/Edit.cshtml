@@ -47,9 +47,22 @@
                 <span asp-validation-for="TaskItem.Priority" class="text-danger"></span>
             </div>
             <div class="col-md-3 mb-3">
+                <label asp-for="TaskItem.StartDate" class="form-label"></label>
+                <input asp-for="TaskItem.StartDate" class="form-control" />
+                <span asp-validation-for="TaskItem.StartDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
                 <label asp-for="TaskItem.DueDate" class="form-label"></label>
                 <input asp-for="TaskItem.DueDate" class="form-control" />
                 <span asp-validation-for="TaskItem.DueDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label asp-for="TaskItem.ProgressPercentage" class="form-label"></label>
+                <div class="input-group">
+                    <input asp-for="TaskItem.ProgressPercentage" class="form-control" type="number" min="0" max="100" />
+                    <span class="input-group-text">%</span>
+                </div>
+                <span asp-validation-for="TaskItem.ProgressPercentage" class="text-danger"></span>
             </div>
             <div class="col-md-3 mb-3">
                 <label asp-for="AssignedTeamMemberId" class="form-label">Atanan Ekip Üyesi</label>

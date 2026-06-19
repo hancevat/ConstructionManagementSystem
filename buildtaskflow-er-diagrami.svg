@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1950" height="1220" viewBox="0 0 1950 1220">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#5b6b82" />
+  </marker>
+</defs>
+
+<style>
+  .bg { fill: #f7f9fc; }
+  .title { font: 700 26px Arial, sans-serif; fill: #172033; }
+  .subtitle { font: 400 14px Arial, sans-serif; fill: #667085; }
+  .entity { fill: #ffffff; stroke: #355c9a; stroke-width: 1.4; rx: 10; }
+  .entity-head { fill: #e9f1ff; stroke: #355c9a; stroke-width: 1.4; }
+  .entity-title { font: 700 15px Arial, sans-serif; fill: #102a56; }
+  .field { font: 12px Consolas, 'Courier New', monospace; fill: #1f2937; }
+  .pk { fill: #0f766e; font-weight: 700; }
+  .fk { fill: #b45309; font-weight: 700; }
+  .line { stroke: #5b6b82; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+  .note-line { stroke: #98a2b3; stroke-width: 1.2; stroke-dasharray: 6 5; fill: none; }
+  .label-bg { fill: #f7f9fc; stroke: #d0d5dd; stroke-width: .8; rx: 4; }
+  .label { font: 11px Arial, sans-serif; fill: #344054; }
+  .small { font: 11px Arial, sans-serif; fill: #667085; }
+</style>
+
+<rect class="bg" x="0" y="0" width="1950" height="1220" />
+<text class="title" x="40" y="42">BuildTaskFlow ER Diyagram?</text>
+<text class="subtitle" x="40" y="66">Roller, ekip ?yeleri, proje planlar?, g?revler, yorumlar ve proforma/fatura taslaklar?</text>
+
+<g>
+<rect class="entity" x="60" y="140" width="300" height="104" />
+<path class="entity-head" d="M60,150 Q60,140 70,140 H350 Q360,140 360,150 V172 H60 Z" />
+<text class="entity-title" x="72" y="161">BuildTaskFlowRoles</text>
+<text class="field pk" x="72" y="190">Id PK</text>
+<text class="field" x="72" y="210">Name</text>
+<text class="field" x="72" y="230">Description</text>
+</g>
+<g>
+<rect class="entity" x="470" y="120" width="360" height="204" />
+<path class="entity-head" d="M470,130 Q470,120 480,120 H820 Q830,120 830,130 V152 H470 Z" />
+<text class="entity-title" x="482" y="141">BuildTaskFlowTeamMembers</text>
+<text class="field pk" x="482" y="170">Id PK</text>
+<text class="field fk" x="482" y="190">BuildTaskFlowRoleId FK</text>
+<text class="field" x="482" y="210">FullName</text>
+<text class="field" x="482" y="230">Email</text>
+<text class="field" x="482" y="250">Phone</text>
+<text class="field" x="482" y="270">PasswordHash</text>
+<text class="field" x="482" y="290">IsActive</text>
+<text class="field" x="482" y="310">CreatedAt</text>
+</g>
+<g>
+<rect class="entity" x="980" y="120" width="350" height="184" />
+<path class="entity-head" d="M980,130 Q980,120 990,120 H1320 Q1330,120 1330,130 V152 H980 Z" />
+<text class="entity-title" x="992" y="141">BuildTaskFlowProjects</text>
+<text class="field pk" x="992" y="170">Id PK</text>
+<text class="field fk" x="992" y="190">OwnerTeamMemberId FK</text>
+<text class="field" x="992" y="210">Name</text>
+<text class="field" x="992" y="230">Description</text>
+<text class="field" x="992" y="250">StartDate</text>
+<text class="field" x="992" y="270">EndDate</text>
+<text class="field" x="992" y="290">Status</text>
+</g>
+<g>
+<rect class="entity" x="1510" y="120" width="300" height="104" />
+<path class="entity-head" d="M1510,130 Q1510,120 1520,120 H1800 Q1810,120 1810,130 V152 H1510 Z" />
+<text class="entity-title" x="1522" y="141">BuildTaskFlowTaskStatuses</text>
+<text class="field pk" x="1522" y="170">Id PK</text>
+<text class="field" x="1522" y="190">Name</text>
+<text class="field" x="1522" y="210">SortOrder</text>
+</g>
+<g>
+<rect class="entity" x="980" y="470" width="360" height="224" />
+<path class="entity-head" d="M980,480 Q980,470 990,470 H1330 Q1340,470 1340,480 V502 H980 Z" />
+<text class="entity-title" x="992" y="491">BuildTaskFlowTasks</text>
+<text class="field pk" x="992" y="520">Id PK</text>
+<text class="field fk" x="992" y="540">BuildTaskFlowProjectId FK</text>
+<text class="field fk" x="992" y="560">BuildTaskFlowTaskStatusId FK</text>
+<text class="field" x="992" y="580">Title</text>
+<text class="field" x="992" y="600">Description</text>
+<text class="field" x="992" y="620">Priority</text>
+<text class="field" x="992" y="640">DueDate</text>
+<text class="field" x="992" y="660">CreatedAt</text>
+<text class="field" x="992" y="680">CompletedAt</text>
+</g>
+<g>
+<rect class="entity" x="470" y="520" width="390" height="124" />
+<path class="entity-head" d="M470,530 Q470,520 480,520 H850 Q860,520 860,530 V552 H470 Z" />
+<text class="entity-title" x="482" y="541">BuildTaskFlowTaskAssignments</text>
+<text class="field pk" x="482" y="570">Id PK</text>
+<text class="field fk" x="482" y="590">BuildTaskFlowTaskId FK</text>
+<text class="field fk" x="482" y="610">BuildTaskFlowTeamMemberId FK</text>
+<text class="field" x="482" y="630">AssignedAt</text>
+</g>
+<g>
+<rect class="entity" x="980" y="860" width="360" height="144" />
+<path class="entity-head" d="M980,870 Q980,860 990,860 H1330 Q1340,860 1340,870 V892 H980 Z" />
+<text class="entity-title" x="992" y="881">BuildTaskFlowComments</text>
+<text class="field pk" x="992" y="910">Id PK</text>
+<text class="field fk" x="992" y="930">BuildTaskFlowTaskId FK</text>
+<text class="field fk" x="992" y="950">BuildTaskFlowTeamMemberId FK</text>
+<text class="field" x="992" y="970">Text</text>
+<text class="field" x="992" y="990">CreatedAt</text>
+</g>
+<g>
+<rect class="entity" x="1510" y="470" width="350" height="264" />
+<path class="entity-head" d="M1510,480 Q1510,470 1520,470 H1850 Q1860,470 1860,480 V502 H1510 Z" />
+<text class="entity-title" x="1522" y="491">BuildTaskFlowInvoices</text>
+<text class="field pk" x="1522" y="520">Id PK</text>
+<text class="field fk" x="1522" y="540">BuildTaskFlowProjectId FK</text>
+<text class="field" x="1522" y="560">InvoiceNumber</text>
+<text class="field" x="1522" y="580">CustomerTitle</text>
+<text class="field" x="1522" y="600">InvoiceDate</text>
+<text class="field" x="1522" y="620">DueDate</text>
+<text class="field" x="1522" y="640">Status</text>
+<text class="field" x="1522" y="660">SubTotal</text>
+<text class="field" x="1522" y="680">TaxRate</text>
+<text class="field" x="1522" y="700">TaxAmount</text>
+<text class="field" x="1522" y="720">GrandTotal</text>
+</g>
+<g>
+<rect class="entity" x="1510" y="900" width="350" height="164" />
+<path class="entity-head" d="M1510,910 Q1510,900 1520,900 H1850 Q1860,900 1860,910 V932 H1510 Z" />
+<text class="entity-title" x="1522" y="921">BuildTaskFlowInvoiceItems</text>
+<text class="field pk" x="1522" y="950">Id PK</text>
+<text class="field fk" x="1522" y="970">BuildTaskFlowInvoiceId FK</text>
+<text class="field" x="1522" y="990">Description</text>
+<text class="field" x="1522" y="1010">Quantity</text>
+<text class="field" x="1522" y="1030">UnitPrice</text>
+<text class="field" x="1522" y="1050">LineTotal</text>
+</g>
+<path class="line" d="M360,205 C415.0,205 415.0,205 470,205" />
+<rect class="label-bg" x="335.7" y="193.0" width="158.6" height="18" />
+<text class="label" text-anchor="middle" x="415.0" y="206.0">BuildTaskFlowRoleId 1-N</text>
+<path class="line" d="M830,190 C905.0,190 905.0,190 980,190" />
+<rect class="label-bg" x="831.9" y="178.0" width="146.2" height="18" />
+<text class="label" text-anchor="middle" x="905.0" y="191.0">OwnerTeamMemberId 1-N</text>
+<path class="line" d="M1155,296 C1155.0,296 1155.0,470 1155,470" />
+<rect class="label-bg" x="1066.4" y="371.0" width="177.2" height="18" />
+<text class="label" text-anchor="middle" x="1155.0" y="384.0">BuildTaskFlowProjectId 1-N</text>
+<path class="line" d="M1510,205 C1425.0,205 1425.0,545 1340,545" />
+<rect class="label-bg" x="1327.1" y="363.0" width="195.8" height="18" />
+<text class="label" text-anchor="middle" x="1425.0" y="376.0">BuildTaskFlowTaskStatusId 1-N</text>
+<path class="line" d="M980,610 C920.0,610 920.0,610 860,610" />
+<rect class="label-bg" x="840.7" y="598.0" width="158.6" height="18" />
+<text class="label" text-anchor="middle" x="920.0" y="611.0">BuildTaskFlowTaskId 1-N</text>
+<path class="line" d="M650,300 C650.0,300 650.0,520 650,520" />
+<rect class="label-bg" x="552.1" y="398.0" width="195.8" height="18" />
+<text class="label" text-anchor="middle" x="650.0" y="411.0">BuildTaskFlowTeamMemberId 1-N</text>
+<path class="line" d="M1160,668 C1160.0,668 1160.0,860 1160,860" />
+<rect class="label-bg" x="1080.7" y="752.0" width="158.6" height="18" />
+<text class="label" text-anchor="middle" x="1160.0" y="765.0">BuildTaskFlowTaskId 1-N</text>
+<path class="line" d="M830,260 C905.0,260 905.0,930 980,930" />
+<rect class="label-bg" x="807.1" y="583.0" width="195.8" height="18" />
+<text class="label" text-anchor="middle" x="905.0" y="596.0">BuildTaskFlowTeamMemberId 1-N</text>
+<path class="line" d="M1330,240 C1420.0,240 1420.0,560 1510,560" />
+<rect class="label-bg" x="1331.4" y="388.0" width="177.2" height="18" />
+<text class="label" text-anchor="middle" x="1420.0" y="401.0">BuildTaskFlowProjectId 1-N</text>
+<path class="line" d="M1685,730 C1685.0,730 1685.0,900 1685,900" />
+<rect class="label-bg" x="1596.4" y="803.0" width="177.2" height="18" />
+<text class="label" text-anchor="middle" x="1685.0" y="816.0">BuildTaskFlowInvoiceId 1-N</text>
+</svg>

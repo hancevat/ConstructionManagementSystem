@@ -22,6 +22,8 @@ public class IndexModel : PageModel
 
     public int CompletedTasks { get; set; }
 
+    public int CompletionRate { get; set; }
+
     public int OverdueTasks { get; set; }
 
     public int TeamMembers { get; set; }
@@ -40,6 +42,9 @@ public class IndexModel : PageModel
         TotalProjects = await _context.BuildTaskFlowProjects.CountAsync();
         TotalTasks = await _context.BuildTaskFlowTasks.CountAsync();
         CompletedTasks = await _context.BuildTaskFlowTasks.CountAsync(task => task.BuildTaskFlowTaskStatusId == completedStatusId);
+        CompletionRate = TotalTasks == 0
+            ? 0
+            : (int)Math.Round(await _context.BuildTaskFlowTasks.AverageAsync(task => task.ProgressPercentage));
         ActiveTasks = TotalTasks - CompletedTasks;
         OverdueTasks = await _context.BuildTaskFlowTasks.CountAsync(task =>
             task.DueDate.HasValue &&

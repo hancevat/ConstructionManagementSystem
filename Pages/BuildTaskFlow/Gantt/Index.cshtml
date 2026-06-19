@@ -1,0 +1,209 @@
+@page
+@model ConstructionManagementSystem.Pages.BuildTaskFlow.Gantt.IndexModel
+@{
+    ViewData["Title"] = "BuildTaskFlow Gantt";
+}
+
+<div class="page-heading">
+    <div>
+        <h1 class="h3 mb-1">BuildTaskFlow Gantt</h1>
+        <p class="text-muted mb-0">Proje, görev ve ekip üyesi bazlı tarih çizelgesi ve tamamlanma yüzdeleri.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-secondary" asp-page="/BuildTaskFlow/Index">Dashboard</a>
+        <a class="btn btn-outline-secondary" asp-page="/BuildTaskFlow/Projects/Index">Projeler</a>
+        <a class="btn btn-primary" asp-page="/BuildTaskFlow/Tasks/Index">Görevler</a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Gantt Tarih Aralığı</div>
+            <div class="stat-value fs-5">@Model.TimelineStart.ToString("dd.MM.yyyy") - @Model.TimelineEnd.ToString("dd.MM.yyyy")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Görev</div>
+            <div class="stat-value">@Model.TotalTasks</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Tamamlanan Görev</div>
+            <div class="stat-value text-success">@Model.CompletedTasks</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Genel Tamamlanma</div>
+            <div class="stat-value">@Model.OverallProgress%</div>
+        </div>
+    </div>
+</div>
+
+<div class="content-card p-3 mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <div>
+            <h2 class="h5 mb-1">Proje ve Görev Gantt Şeması</h2>
+            <p class="text-muted mb-0">Her çubuk başlangıç tarihi, bitiş/teslim tarihi ve tamamlanma yüzdesini gösterir.</p>
+        </div>
+        <div class="gantt-legend">
+            <span><i class="legend-box gantt-bar-active"></i>Devam Ediyor</span>
+            <span><i class="legend-box gantt-bar-testing"></i>Test</span>
+            <span><i class="legend-box gantt-bar-completed"></i>Tamamlandı</span>
+            <span><i class="legend-box gantt-bar-overdue"></i>Geciken</span>
+        </div>
+    </div>
+
+    <div class="gantt-shell">
+        <div class="gantt-row gantt-scale-row">
+            <div class="gantt-row-label">Tarih</div>
+            <div class="gantt-timeline">
+                @foreach (var marker in Model.TimelineMarkers)
+                {
+                    <div class="gantt-marker" style="left: @marker.Left">
+                        <span>@marker.Label</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @foreach (var project in Model.ProjectRows)
+        {
+            <div class="gantt-row gantt-project-row">
+                <div class="gantt-row-label">
+                    <strong>@project.Name</strong>
+                    <span>@project.OwnerName</span>
+                    <span class="gantt-status-pill gantt-status-project">@project.Status</span>
+                    <small>@project.StartDate.ToString("dd.MM.yyyy") - @project.EndDate.ToString("dd.MM.yyyy")</small>
+                </div>
+                <div class="gantt-timeline">
+                    @foreach (var marker in Model.TimelineMarkers)
+                    {
+                        <div class="gantt-grid-line" style="left: @marker.Left"></div>
+                    }
+                    <a class="gantt-bar gantt-bar-project"
+                       style="left: @project.Left; width: @project.Width"
+                       asp-page="/BuildTaskFlow/Projects/Details"
+                       asp-route-id="@project.Id"
+                       title="@project.Name - @project.ProgressPercentage%">
+                        <span>@project.ProgressPercentage%</span>
+                    </a>
+                </div>
+            </div>
+
+            @foreach (var task in project.Tasks)
+            {
+                <div class="gantt-row gantt-task-row">
+                    <div class="gantt-row-label">
+                        <a asp-page="/BuildTaskFlow/Tasks/Details" asp-route-id="@task.Id">@task.Title</a>
+                        <span>@task.AssignedNames</span>
+                        <span class="gantt-status-pill @task.CssClass">@task.StatusName</span>
+                        <small>@task.StartDate.ToString("dd.MM.yyyy") - @task.EndDate.ToString("dd.MM.yyyy")</small>
+                    </div>
+                    <div class="gantt-timeline">
+                        @foreach (var marker in Model.TimelineMarkers)
+                        {
+                            <div class="gantt-grid-line" style="left: @marker.Left"></div>
+                        }
+                        <a class="gantt-bar @task.CssClass"
+                           style="left: @task.Left; width: @task.Width"
+                           asp-page="/BuildTaskFlow/Tasks/Details"
+                           asp-route-id="@task.Id"
+                           title="@task.Title - @task.ProgressPercentage%">
+                            <span>@task.ProgressPercentage%</span>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="content-card p-3 mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <div>
+            <h2 class="h5 mb-1">Ekip Üyesine Göre Tamamlanma</h2>
+            <p class="text-muted mb-0">Kişilere atanmış görevlerin sayısı ve ortalama tamamlanma yüzdesi.</p>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        @foreach (var member in Model.MemberRows)
+        {
+            <div class="col-md-6 col-xl-4">
+                <div class="team-progress-card">
+                    <div class="d-flex justify-content-between gap-2">
+                        <div>
+                            <strong>@member.FullName</strong>
+                            <div class="text-muted small">@member.RoleName</div>
+                        </div>
+                        <span class="badge text-bg-primary align-self-start">@member.ProgressPercentage%</span>
+                    </div>
+                    <div class="progress progress-thin mt-3" role="progressbar" aria-valuenow="@member.ProgressPercentage" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: @member.ProgressPercentage%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small mt-2">
+                        <span>@member.TotalTasks görev</span>
+                        <span>@member.CompletedTasks tamamlandı</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="content-card p-3">
+    <div class="mb-3">
+        <h2 class="h5 mb-1">Ekip Üyesi Bazlı Gantt</h2>
+        <p class="text-muted mb-0">Aynı görev tarihleri bu kez görev alan kişilere göre gruplanmıştır.</p>
+    </div>
+
+    <div class="gantt-shell">
+        <div class="gantt-row gantt-scale-row">
+            <div class="gantt-row-label">Tarih</div>
+            <div class="gantt-timeline">
+                @foreach (var marker in Model.TimelineMarkers)
+                {
+                    <div class="gantt-marker" style="left: @marker.Left">
+                        <span>@marker.Label</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @foreach (var member in Model.MemberRows)
+        {
+            <div class="gantt-row gantt-member-row">
+                <div class="gantt-row-label">
+                    <strong>@member.FullName</strong>
+                    <span>@member.TotalTasks görev / @member.ProgressPercentage%</span>
+                </div>
+                <div class="gantt-timeline">
+                    @foreach (var marker in Model.TimelineMarkers)
+                    {
+                        <div class="gantt-grid-line" style="left: @marker.Left"></div>
+                    }
+                    @{
+                        var laneIndex = 0;
+                    }
+                    @foreach (var task in member.Tasks)
+                    {
+                        var taskTitle = $"{task.Title} - {task.StatusName} - {task.StartDate:dd.MM.yyyy} / {task.EndDate:dd.MM.yyyy} - {task.ProgressPercentage}%";
+                        var laneTop = $"{(0.55 + (laneIndex % 3 * 1.5)).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)}rem";
+                        laneIndex++;
+                        <a class="gantt-bar gantt-bar-compact @task.CssClass"
+                           style="left: @task.Left; width: @task.Width; top: @laneTop; transform: none"
+                           asp-page="/BuildTaskFlow/Tasks/Details"
+                           asp-route-id="@task.Id"
+                           title="@taskTitle">
+                            <span>@task.ProgressPercentage%</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

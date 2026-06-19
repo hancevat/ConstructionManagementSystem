@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1220" viewBox="0 0 1900 1220">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#5b6b82" />
+  </marker>
+</defs>
+
+<style>
+  .bg { fill: #f7f9fc; }
+  .title { font: 700 26px Arial, sans-serif; fill: #172033; }
+  .subtitle { font: 400 14px Arial, sans-serif; fill: #667085; }
+  .entity { fill: #ffffff; stroke: #355c9a; stroke-width: 1.4; rx: 10; }
+  .entity-head { fill: #e9f1ff; stroke: #355c9a; stroke-width: 1.4; }
+  .entity-title { font: 700 15px Arial, sans-serif; fill: #102a56; }
+  .field { font: 12px Consolas, 'Courier New', monospace; fill: #1f2937; }
+  .pk { fill: #0f766e; font-weight: 700; }
+  .fk { fill: #b45309; font-weight: 700; }
+  .line { stroke: #5b6b82; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+  .note-line { stroke: #98a2b3; stroke-width: 1.2; stroke-dasharray: 6 5; fill: none; }
+  .label-bg { fill: #f7f9fc; stroke: #d0d5dd; stroke-width: .8; rx: 4; }
+  .label { font: 11px Arial, sans-serif; fill: #344054; }
+  .small { font: 11px Arial, sans-serif; fill: #667085; }
+</style>
+
+<rect class="bg" x="0" y="0" width="1900" height="1220" />
+<text class="title" x="40" y="42">Ana ?n?aat Otomasyonu ER Diyagram?</text>
+<text class="subtitle" x="40" y="66">ConstructionManagementDb ana tablolar?, PK/FK alanlar? ve 1-N ili?kiler</text>
+
+<g>
+<rect class="entity" x="60" y="130" width="270" height="144" />
+<path class="entity-head" d="M60,140 Q60,130 70,130 H320 Q330,130 330,140 V162 H60 Z" />
+<text class="entity-title" x="72" y="151">Clients</text>
+<text class="field pk" x="72" y="180">Id PK</text>
+<text class="field" x="72" y="200">FullName</text>
+<text class="field" x="72" y="220">CompanyName</text>
+<text class="field" x="72" y="240">Phone</text>
+<text class="field" x="72" y="260">Address</text>
+</g>
+<g>
+<rect class="entity" x="470" y="130" width="330" height="224" />
+<path class="entity-head" d="M470,140 Q470,130 480,130 H790 Q800,130 800,140 V162 H470 Z" />
+<text class="entity-title" x="482" y="151">ConstructionProjects</text>
+<text class="field pk" x="482" y="180">Id PK</text>
+<text class="field fk" x="482" y="200">ClientId FK</text>
+<text class="field" x="482" y="220">Name</text>
+<text class="field" x="482" y="240">Location</text>
+<text class="field" x="482" y="260">StartDate</text>
+<text class="field" x="482" y="280">EndDate</text>
+<text class="field" x="482" y="300">Status</text>
+<text class="field" x="482" y="320">ContractAmount</text>
+<text class="field" x="482" y="340">Description</text>
+</g>
+<g>
+<rect class="entity" x="470" y="510" width="300" height="144" />
+<path class="entity-head" d="M470,520 Q470,510 480,510 H760 Q770,510 770,520 V542 H470 Z" />
+<text class="entity-title" x="482" y="531">ProjectIncomes</text>
+<text class="field pk" x="482" y="560">Id PK</text>
+<text class="field fk" x="482" y="580">ConstructionProjectId FK</text>
+<text class="field" x="482" y="600">IncomeDate</text>
+<text class="field" x="482" y="620">Amount</text>
+<text class="field" x="482" y="640">Description</text>
+</g>
+<g>
+<rect class="entity" x="850" y="510" width="300" height="184" />
+<path class="entity-head" d="M850,520 Q850,510 860,510 H1140 Q1150,510 1150,520 V542 H850 Z" />
+<text class="entity-title" x="862" y="531">Expenses</text>
+<text class="field pk" x="862" y="560">Id PK</text>
+<text class="field fk" x="862" y="580">ConstructionProjectId FK</text>
+<text class="field" x="862" y="600">Title</text>
+<text class="field" x="862" y="620">Category</text>
+<text class="field" x="862" y="640">Amount</text>
+<text class="field" x="862" y="660">ExpenseDate</text>
+<text class="field" x="862" y="680">Description</text>
+</g>
+<g>
+<rect class="entity" x="60" y="520" width="260" height="164" />
+<path class="entity-head" d="M60,530 Q60,520 70,520 H310 Q320,520 320,530 V552 H60 Z" />
+<text class="entity-title" x="72" y="541">Workers</text>
+<text class="field pk" x="72" y="570">Id PK</text>
+<text class="field" x="72" y="590">FullName</text>
+<text class="field" x="72" y="610">Phone</text>
+<text class="field" x="72" y="630">JobTitle</text>
+<text class="field" x="72" y="650">DailyWage</text>
+<text class="field" x="72" y="670">IsActive</text>
+</g>
+<g>
+<rect class="entity" x="470" y="820" width="320" height="184" />
+<path class="entity-head" d="M470,830 Q470,820 480,820 H780 Q790,820 790,830 V852 H470 Z" />
+<text class="entity-title" x="482" y="841">WorkerPayments</text>
+<text class="field pk" x="482" y="870">Id PK</text>
+<text class="field fk" x="482" y="890">WorkerId FK</text>
+<text class="field fk" x="482" y="910">ConstructionProjectId FK</text>
+<text class="field" x="482" y="930">PaymentDate</text>
+<text class="field" x="482" y="950">WorkDays</text>
+<text class="field" x="482" y="970">Amount</text>
+<text class="field" x="482" y="990">Description</text>
+</g>
+<g>
+<rect class="entity" x="1180" y="90" width="260" height="84" />
+<path class="entity-head" d="M1180,100 Q1180,90 1190,90 H1430 Q1440,90 1440,100 V122 H1180 Z" />
+<text class="entity-title" x="1192" y="111">MaterialTypes</text>
+<text class="field pk" x="1192" y="140">Id PK</text>
+<text class="field" x="1192" y="160">Name</text>
+</g>
+<g>
+<rect class="entity" x="1180" y="260" width="300" height="184" />
+<path class="entity-head" d="M1180,270 Q1180,260 1190,260 H1470 Q1480,260 1480,270 V292 H1180 Z" />
+<text class="entity-title" x="1192" y="281">Materials</text>
+<text class="field pk" x="1192" y="310">Id PK</text>
+<text class="field fk" x="1192" y="330">MaterialTypeId FK</text>
+<text class="field" x="1192" y="350">Name</text>
+<text class="field" x="1192" y="370">Unit</text>
+<text class="field" x="1192" y="390">UnitPrice</text>
+<text class="field" x="1192" y="410">StockQuantity</text>
+<text class="field" x="1192" y="430">Description</text>
+</g>
+<g>
+<rect class="entity" x="1540" y="260" width="290" height="144" />
+<path class="entity-head" d="M1540,270 Q1540,260 1550,260 H1820 Q1830,260 1830,270 V292 H1540 Z" />
+<text class="entity-title" x="1552" y="281">Suppliers</text>
+<text class="field pk" x="1552" y="310">Id PK</text>
+<text class="field" x="1552" y="330">CompanyName</text>
+<text class="field" x="1552" y="350">ContactName</text>
+<text class="field" x="1552" y="370">Phone</text>
+<text class="field" x="1552" y="390">Address</text>
+</g>
+<g>
+<rect class="entity" x="1040" y="690" width="360" height="224" />
+<path class="entity-head" d="M1040,700 Q1040,690 1050,690 H1390 Q1400,690 1400,700 V722 H1040 Z" />
+<text class="entity-title" x="1052" y="711">MaterialPurchases</text>
+<text class="field pk" x="1052" y="740">Id PK</text>
+<text class="field fk" x="1052" y="760">ConstructionProjectId FK</text>
+<text class="field fk" x="1052" y="780">MaterialId FK</text>
+<text class="field fk" x="1052" y="800">SupplierId FK</text>
+<text class="field" x="1052" y="820">PurchaseDate</text>
+<text class="field" x="1052" y="840">Quantity</text>
+<text class="field" x="1052" y="860">UnitPrice</text>
+<text class="field" x="1052" y="880">TotalAmount</text>
+<text class="field" x="1052" y="900">Description</text>
+</g>
+<g>
+<rect class="entity" x="60" y="900" width="300" height="164" />
+<path class="entity-head" d="M60,910 Q60,900 70,900 H350 Q360,900 360,910 V932 H60 Z" />
+<text class="entity-title" x="72" y="921">Subcontractors</text>
+<text class="field pk" x="72" y="950">Id PK</text>
+<text class="field" x="72" y="970">CompanyName</text>
+<text class="field" x="72" y="990">WorkType</text>
+<text class="field" x="72" y="1010">ContactName</text>
+<text class="field" x="72" y="1030">Phone</text>
+<text class="field" x="72" y="1050">Address</text>
+</g>
+<path class="line" d="M330,230 C400.0,230 400.0,230 470,230" />
+<rect class="label-bg" x="354.0" y="218.0" width="92.0" height="18" />
+<text class="label" text-anchor="middle" x="400.0" y="231.0">ClientId 1-N</text>
+<path class="line" d="M800,300 C920.0,300 920.0,780 1040,780" />
+<rect class="label-bg" x="834.5" y="528.0" width="171.0" height="18" />
+<text class="label" text-anchor="middle" x="920.0" y="541.0">ConstructionProjectId 1-N</text>
+<path class="line" d="M800,270 C635.0,270 635.0,560 470,560" />
+<rect class="label-bg" x="540.2" y="403.0" width="189.6" height="18" />
+<text class="label" text-anchor="middle" x="635.0" y="416.0">ProjectIncomes.ProjectId 1-N</text>
+<path class="line" d="M800,300 C825.0,300 825.0,580 850,580" />
+<rect class="label-bg" x="748.8" y="428.0" width="152.4" height="18" />
+<text class="label" text-anchor="middle" x="825.0" y="441.0">Expenses.ProjectId 1-N</text>
+<path class="line" d="M800,340 C635.0,340 635.0,900 470,900" />
+<rect class="label-bg" x="540.2" y="608.0" width="189.6" height="18" />
+<text class="label" text-anchor="middle" x="635.0" y="621.0">WorkerPayments.ProjectId 1-N</text>
+<path class="line" d="M320,610 C395.0,610 395.0,900 470,900" />
+<rect class="label-bg" x="349.0" y="743.0" width="92.0" height="18" />
+<text class="label" text-anchor="middle" x="395.0" y="756.0">WorkerId 1-N</text>
+<path class="line" d="M1310,154 C1310.0,154 1310.0,260 1310,260" />
+<rect class="label-bg" x="1246.2" y="195.0" width="127.6" height="18" />
+<text class="label" text-anchor="middle" x="1310.0" y="208.0">MaterialTypeId 1-N</text>
+<path class="line" d="M1330,440 C1275.0,440 1275.0,690 1220,690" />
+<rect class="label-bg" x="1223.6" y="553.0" width="102.8" height="18" />
+<text class="label" text-anchor="middle" x="1275.0" y="566.0">MaterialId 1-N</text>
+<path class="line" d="M1540,360 C1470.0,360 1470.0,780 1400,780" />
+<rect class="label-bg" x="1418.6" y="558.0" width="102.8" height="18" />
+<text class="label" text-anchor="middle" x="1470.0" y="571.0">SupplierId 1-N</text>
+<text class="small" x="66" y="1110">Not: Subcontractors mevcut modelde ba??ms?z CRUD tablosudur; do?rudan proje FK ili?kisi yoktur.</text>
+</svg>

@@ -4,6 +4,7 @@ using ConstructionManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260612085346_AddBuildTaskFlowGanttProgress")]
+    partial class AddBuildTaskFlowGanttProgress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,22 +71,6 @@ namespace ConstructionManagementSystem.Migrations
                             BuildTaskFlowTeamMemberId = 4,
                             CreatedAt = new DateTime(2026, 5, 22, 14, 15, 0, 0, DateTimeKind.Unspecified),
                             Text = "Dashboard kartları test edildi, tarih ve para gösterimleri kontrol edilecek."
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BuildTaskFlowTaskId = 8,
-                            BuildTaskFlowTeamMemberId = 3,
-                            CreatedAt = new DateTime(2026, 6, 12, 11, 30, 0, 0, DateTimeKind.Unspecified),
-                            Text = "Rol bazlı erişim ve Gantt görünümü test senaryosuna eklendi."
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BuildTaskFlowTaskId = 10,
-                            BuildTaskFlowTeamMemberId = 2,
-                            CreatedAt = new DateTime(2026, 6, 14, 15, 45, 0, 0, DateTimeKind.Unspecified),
-                            Text = "Final demosunda Gantt tarihleri ve tamamlanma yüzdeleri özellikle gösterilecek."
                         });
                 });
 
@@ -254,7 +241,7 @@ namespace ConstructionManagementSystem.Migrations
                         {
                             Id = 1,
                             Description = "Şantiye, malzeme, işçi, gelir ve gider ekranlarının geliştirme planı.",
-                            EndDate = new DateTime(2026, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2026, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "İnşaat Otomasyonu Geliştirme Projesi",
                             OwnerTeamMemberId = 2,
                             StartDate = new DateTime(2026, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -264,11 +251,11 @@ namespace ConstructionManagementSystem.Migrations
                         {
                             Id = 2,
                             Description = "Saha ekiplerinin görev, durum ve teslim tarihlerini takip etmesi için proje yönetimi kurulumu.",
-                            EndDate = new DateTime(2026, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2026, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Şantiye Görev Takip Kurulumu",
                             OwnerTeamMemberId = 2,
                             StartDate = new DateTime(2026, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = "Devam Ediyor"
+                            Status = "Planlandı"
                         });
                 });
 
@@ -406,27 +393,26 @@ namespace ConstructionManagementSystem.Migrations
                             Id = 2,
                             BuildTaskFlowProjectId = 1,
                             BuildTaskFlowTaskStatusId = 4,
-                            CompletedAt = new DateTime(2026, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CompletedAt = new DateTime(2026, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedAt = new DateTime(2026, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Şantiye/proje kaydı için model ve CRUD ekranları hazırlanacak.",
-                            DueDate = new DateTime(2026, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2026, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Priority = "Yüksek",
                             ProgressPercentage = 100,
-                            StartDate = new DateTime(2026, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2026, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "ConstructionProject modelini oluşturma"
                         },
                         new
                         {
                             Id = 3,
                             BuildTaskFlowProjectId = 1,
-                            BuildTaskFlowTaskStatusId = 4,
-                            CompletedAt = new DateTime(2026, 5, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BuildTaskFlowTaskStatusId = 2,
                             CreatedAt = new DateTime(2026, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Malzeme alımı yapıldığında stok miktarını artıran iş kuralı uygulanacak.",
-                            DueDate = new DateTime(2026, 5, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2026, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Priority = "Yüksek",
-                            ProgressPercentage = 100,
-                            StartDate = new DateTime(2026, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProgressPercentage = 65,
+                            StartDate = new DateTime(2026, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "MaterialPurchase işlemini oluşturma"
                         },
                         new
@@ -436,103 +422,37 @@ namespace ConstructionManagementSystem.Migrations
                             BuildTaskFlowTaskStatusId = 3,
                             CreatedAt = new DateTime(2026, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Toplam proje, gelir, gider ve net kar/zarar kartları kontrol edilecek.",
-                            DueDate = new DateTime(2026, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2026, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Priority = "Orta",
-                            ProgressPercentage = 80,
-                            StartDate = new DateTime(2026, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProgressPercentage = 85,
+                            StartDate = new DateTime(2026, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Dashboard tasarımı"
                         },
                         new
                         {
                             Id = 5,
                             BuildTaskFlowProjectId = 2,
-                            BuildTaskFlowTaskStatusId = 4,
-                            CompletedAt = new DateTime(2026, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BuildTaskFlowTaskStatusId = 1,
                             CreatedAt = new DateTime(2026, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Yönetici, proje sorumlusu, şantiye şefi, malzeme sorumlusu ve muhasebe rollerinin giriş akışı hazırlanacak.",
-                            DueDate = new DateTime(2026, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2026, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Priority = "Yüksek",
-                            ProgressPercentage = 100,
-                            StartDate = new DateTime(2026, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProgressPercentage = 35,
+                            StartDate = new DateTime(2026, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Rol ve giriş ekranı tasarımı"
                         },
                         new
                         {
                             Id = 6,
                             BuildTaskFlowProjectId = 2,
-                            BuildTaskFlowTaskStatusId = 3,
+                            BuildTaskFlowTaskStatusId = 1,
                             CreatedAt = new DateTime(2026, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Tarihli, numaralı ve kalemli proforma/fatura taslağı ekranı hazırlanacak.",
-                            DueDate = new DateTime(2026, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(2026, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Priority = "Orta",
-                            ProgressPercentage = 75,
-                            StartDate = new DateTime(2026, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProgressPercentage = 25,
+                            StartDate = new DateTime(2026, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Proforma fatura taslağı ekranı"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            BuildTaskFlowProjectId = 1,
-                            BuildTaskFlowTaskStatusId = 2,
-                            CreatedAt = new DateTime(2026, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Proje, görev ve ekip üyesi bazlı Gantt görünümü hazırlanacak.",
-                            DueDate = new DateTime(2026, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Priority = "Yüksek",
-                            ProgressPercentage = 55,
-                            StartDate = new DateTime(2026, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Gantt ve ilerleme yüzdesi ekranı"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            BuildTaskFlowProjectId = 1,
-                            BuildTaskFlowTaskStatusId = 3,
-                            CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Migration, rol bazlı erişim ve örnek kullanıcı akışı test edilecek.",
-                            DueDate = new DateTime(2026, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Priority = "Yüksek",
-                            ProgressPercentage = 70,
-                            StartDate = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Veritabanı ve rol testleri"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            BuildTaskFlowProjectId = 2,
-                            BuildTaskFlowTaskStatusId = 2,
-                            CreatedAt = new DateTime(2026, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Kişilere göre görev sayısı, tamamlanan görev ve ortalama yüzde değerleri kontrol edilecek.",
-                            DueDate = new DateTime(2026, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Priority = "Orta",
-                            ProgressPercentage = 45,
-                            StartDate = new DateTime(2026, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Ekip üyesi bazlı görev raporu"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            BuildTaskFlowProjectId = 2,
-                            BuildTaskFlowTaskStatusId = 3,
-                            CreatedAt = new DateTime(2026, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Sunum sırasında açılacak ekranlar ve örnek veriler uçtan uca test edilecek.",
-                            DueDate = new DateTime(2026, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Priority = "Yüksek",
-                            ProgressPercentage = 60,
-                            StartDate = new DateTime(2026, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Final demo testleri"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            BuildTaskFlowProjectId = 2,
-                            BuildTaskFlowTaskStatusId = 2,
-                            CreatedAt = new DateTime(2026, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Gantt, görev yüzdeleri ve rapor ekranlarında kullanılacak demo verileri güncellenecek.",
-                            DueDate = new DateTime(2026, 6, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Priority = "Orta",
-                            ProgressPercentage = 30,
-                            StartDate = new DateTime(2026, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Sunum demo verilerini güncelleme"
                         });
                 });
 
@@ -603,41 +523,6 @@ namespace ConstructionManagementSystem.Migrations
                             Id = 6,
                             AssignedAt = new DateTime(2026, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BuildTaskFlowTaskId = 6,
-                            BuildTaskFlowTeamMemberId = 5
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AssignedAt = new DateTime(2026, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BuildTaskFlowTaskId = 7,
-                            BuildTaskFlowTeamMemberId = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AssignedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BuildTaskFlowTaskId = 8,
-                            BuildTaskFlowTeamMemberId = 3
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AssignedAt = new DateTime(2026, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BuildTaskFlowTaskId = 9,
-                            BuildTaskFlowTeamMemberId = 4
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AssignedAt = new DateTime(2026, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BuildTaskFlowTaskId = 10,
-                            BuildTaskFlowTeamMemberId = 2
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AssignedAt = new DateTime(2026, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BuildTaskFlowTaskId = 11,
                             BuildTaskFlowTeamMemberId = 5
                         });
                 });

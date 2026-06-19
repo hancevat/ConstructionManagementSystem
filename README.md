@@ -65,6 +65,7 @@ BuildTaskFlow adds a simple role-based workflow on top of the main system. Team 
 - Project income and expense tracking
 - Read-only SQL query screen for `SELECT` queries
 - BuildTaskFlow tasks, task comments and team member tracking
+- BuildTaskFlow Gantt screen with project/task dates, team member workload and completion percentages
 - Dated, numbered and itemized proforma/invoice draft screen
 
 ## Roles

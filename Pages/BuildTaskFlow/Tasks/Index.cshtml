@@ -10,10 +10,13 @@
         <h1 class="h3 mb-1">Görevler</h1>
         <p class="text-muted mb-0">Görev durumu, öncelik, teslim tarihi ve atanan ekip üyesi takibi.</p>
     </div>
-    @if (canManageTasks)
-    {
-        <a class="btn btn-primary" asp-page="Create">Yeni Görev</a>
-    }
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-primary" asp-page="/BuildTaskFlow/Gantt/Index">Gantt</a>
+        @if (canManageTasks)
+        {
+            <a class="btn btn-primary" asp-page="Create">Yeni Görev</a>
+        }
+    </div>
 </div>
 
 <div class="content-card p-3">
@@ -25,7 +28,9 @@
                     <th>Proje</th>
                     <th>Durum</th>
                     <th>Öncelik</th>
+                    <th>Başlangıç</th>
                     <th>Teslim</th>
+                    <th>Tamamlanma</th>
                     <th>Atanan</th>
                     <th>İşlemler</th>
                 </tr>
@@ -39,7 +44,13 @@
                         <td>@task.Project?.Name</td>
                         <td><span class="badge text-bg-secondary">@task.Status?.Name</span></td>
                         <td>@task.Priority</td>
+                        <td>@(task.StartDate?.ToString("dd.MM.yyyy") ?? "-")</td>
                         <td>@(task.DueDate?.ToString("dd.MM.yyyy") ?? "-")</td>
+                        <td style="min-width: 140px;">
+                            <div class="progress progress-thin" role="progressbar" aria-valuenow="@task.ProgressPercentage" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: @task.ProgressPercentage%">@task.ProgressPercentage%</div>
+                            </div>
+                        </td>
                         <td>@string.Join(", ", task.Assignments.Select(item => item.TeamMember?.FullName))</td>
                         <td>
                             <div class="actions">

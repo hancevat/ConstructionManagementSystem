@@ -35,8 +35,20 @@
             <div class="details-value">@Model.TaskItem.Priority</div>
         </div>
         <div class="details-item">
+            <div class="details-label">Başlangıç Tarihi</div>
+            <div class="details-value">@(Model.TaskItem.StartDate?.ToString("dd.MM.yyyy") ?? "-")</div>
+        </div>
+        <div class="details-item">
             <div class="details-label">Teslim Tarihi</div>
             <div class="details-value">@(Model.TaskItem.DueDate?.ToString("dd.MM.yyyy") ?? "-")</div>
+        </div>
+        <div class="details-item">
+            <div class="details-label">Tamamlanma</div>
+            <div class="details-value">
+                <div class="progress progress-thin" role="progressbar" aria-valuenow="@Model.TaskItem.ProgressPercentage" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" style="width: @Model.TaskItem.ProgressPercentage%">@Model.TaskItem.ProgressPercentage%</div>
+                </div>
+            </div>
         </div>
         <div class="details-item">
             <div class="details-label">Atanan</div>

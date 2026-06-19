@@ -28,9 +28,17 @@ public class BuildTaskFlowTask
     [StringLength(30)]
     public string Priority { get; set; } = "Orta";
 
+    [Display(Name = "Başlangıç Tarihi")]
+    [DataType(DataType.Date)]
+    public DateTime? StartDate { get; set; } = DateTime.Today;
+
     [Display(Name = "Teslim Tarihi")]
     [DataType(DataType.Date)]
     public DateTime? DueDate { get; set; }
+
+    [Display(Name = "Tamamlanma Yüzdesi")]
+    [Range(0, 100, ErrorMessage = "Tamamlanma yüzdesi 0 ile 100 arasında olmalıdır.")]
+    public int ProgressPercentage { get; set; }
 
     [Display(Name = "Oluşturulma Tarihi")]
     public DateTime CreatedAt { get; set; } = DateTime.Now;

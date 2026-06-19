@@ -13,6 +13,7 @@
     <div class="d-flex flex-wrap gap-2">
         <a class="btn btn-outline-secondary" asp-page="/BuildTaskFlow/TeamMembers/Index">Ekip</a>
         <a class="btn btn-outline-secondary" asp-page="/BuildTaskFlow/Projects/Index">Projeler</a>
+        <a class="btn btn-outline-primary" asp-page="/BuildTaskFlow/Gantt/Index">Gantt</a>
         <a class="btn btn-primary" asp-page="/BuildTaskFlow/Tasks/Index">Görevler</a>
     </div>
 </div>
@@ -40,6 +41,12 @@
         <div class="stat-card">
             <div class="stat-label">Tamamlanan Görev</div>
             <div class="stat-value text-success">@Model.CompletedTasks</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-label">Görev Tamamlanma Oranı</div>
+            <div class="stat-value">@Model.CompletionRate%</div>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">

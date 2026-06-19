@@ -335,7 +335,7 @@ public class ApplicationDbContext : DbContext
                 Name = "İnşaat Otomasyonu Geliştirme Projesi",
                 Description = "Şantiye, malzeme, işçi, gelir ve gider ekranlarının geliştirme planı.",
                 StartDate = new DateTime(2026, 5, 1),
-                EndDate = new DateTime(2026, 6, 10),
+                EndDate = new DateTime(2026, 6, 24),
                 Status = "Devam Ediyor",
                 OwnerTeamMemberId = 2
             },
@@ -345,18 +345,23 @@ public class ApplicationDbContext : DbContext
                 Name = "Şantiye Görev Takip Kurulumu",
                 Description = "Saha ekiplerinin görev, durum ve teslim tarihlerini takip etmesi için proje yönetimi kurulumu.",
                 StartDate = new DateTime(2026, 5, 15),
-                EndDate = new DateTime(2026, 6, 25),
-                Status = "Planlandı",
+                EndDate = new DateTime(2026, 6, 30),
+                Status = "Devam Ediyor",
                 OwnerTeamMemberId = 2
             });
 
         modelBuilder.Entity<BuildTaskFlowTask>().HasData(
-            new BuildTaskFlowTask { Id = 1, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 4, Title = "Veritabanı tablolarını tasarlama", Description = "Ana tablolar, ilişkiler ve seed verileri planlanacak.", Priority = "Yüksek", DueDate = new DateTime(2026, 5, 8), CreatedAt = new DateTime(2026, 5, 1), CompletedAt = new DateTime(2026, 5, 7) },
-            new BuildTaskFlowTask { Id = 2, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 4, Title = "ConstructionProject modelini oluşturma", Description = "Şantiye/proje kaydı için model ve CRUD ekranları hazırlanacak.", Priority = "Yüksek", DueDate = new DateTime(2026, 5, 10), CreatedAt = new DateTime(2026, 5, 2), CompletedAt = new DateTime(2026, 5, 10) },
-            new BuildTaskFlowTask { Id = 3, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 2, Title = "MaterialPurchase işlemini oluşturma", Description = "Malzeme alımı yapıldığında stok miktarını artıran iş kuralı uygulanacak.", Priority = "Yüksek", DueDate = new DateTime(2026, 5, 24), CreatedAt = new DateTime(2026, 5, 12) },
-            new BuildTaskFlowTask { Id = 4, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 3, Title = "Dashboard tasarımı", Description = "Toplam proje, gelir, gider ve net kar/zarar kartları kontrol edilecek.", Priority = "Orta", DueDate = new DateTime(2026, 5, 26), CreatedAt = new DateTime(2026, 5, 14) },
-            new BuildTaskFlowTask { Id = 5, BuildTaskFlowProjectId = 2, BuildTaskFlowTaskStatusId = 1, Title = "Rol ve giriş ekranı tasarımı", Description = "Yönetici, proje sorumlusu, şantiye şefi, malzeme sorumlusu ve muhasebe rollerinin giriş akışı hazırlanacak.", Priority = "Yüksek", DueDate = new DateTime(2026, 6, 3), CreatedAt = new DateTime(2026, 5, 16) },
-            new BuildTaskFlowTask { Id = 6, BuildTaskFlowProjectId = 2, BuildTaskFlowTaskStatusId = 1, Title = "Proforma fatura taslağı ekranı", Description = "Tarihli, numaralı ve kalemli proforma/fatura taslağı ekranı hazırlanacak.", Priority = "Orta", DueDate = new DateTime(2026, 6, 8), CreatedAt = new DateTime(2026, 5, 17) });
+            new BuildTaskFlowTask { Id = 1, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 4, Title = "Veritabanı tablolarını tasarlama", Description = "Ana tablolar, ilişkiler ve seed verileri planlanacak.", Priority = "Yüksek", StartDate = new DateTime(2026, 5, 1), DueDate = new DateTime(2026, 5, 8), ProgressPercentage = 100, CreatedAt = new DateTime(2026, 5, 1), CompletedAt = new DateTime(2026, 5, 7) },
+            new BuildTaskFlowTask { Id = 2, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 4, Title = "ConstructionProject modelini oluşturma", Description = "Şantiye/proje kaydı için model ve CRUD ekranları hazırlanacak.", Priority = "Yüksek", StartDate = new DateTime(2026, 5, 9), DueDate = new DateTime(2026, 5, 15), ProgressPercentage = 100, CreatedAt = new DateTime(2026, 5, 2), CompletedAt = new DateTime(2026, 5, 15) },
+            new BuildTaskFlowTask { Id = 3, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 4, Title = "MaterialPurchase işlemini oluşturma", Description = "Malzeme alımı yapıldığında stok miktarını artıran iş kuralı uygulanacak.", Priority = "Yüksek", StartDate = new DateTime(2026, 5, 16), DueDate = new DateTime(2026, 5, 28), ProgressPercentage = 100, CreatedAt = new DateTime(2026, 5, 12), CompletedAt = new DateTime(2026, 5, 28) },
+            new BuildTaskFlowTask { Id = 4, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 3, Title = "Dashboard tasarımı", Description = "Toplam proje, gelir, gider ve net kar/zarar kartları kontrol edilecek.", Priority = "Orta", StartDate = new DateTime(2026, 6, 4), DueDate = new DateTime(2026, 6, 15), ProgressPercentage = 80, CreatedAt = new DateTime(2026, 5, 14) },
+            new BuildTaskFlowTask { Id = 5, BuildTaskFlowProjectId = 2, BuildTaskFlowTaskStatusId = 4, Title = "Rol ve giriş ekranı tasarımı", Description = "Yönetici, proje sorumlusu, şantiye şefi, malzeme sorumlusu ve muhasebe rollerinin giriş akışı hazırlanacak.", Priority = "Yüksek", StartDate = new DateTime(2026, 5, 20), DueDate = new DateTime(2026, 6, 1), ProgressPercentage = 100, CreatedAt = new DateTime(2026, 5, 16), CompletedAt = new DateTime(2026, 6, 1) },
+            new BuildTaskFlowTask { Id = 6, BuildTaskFlowProjectId = 2, BuildTaskFlowTaskStatusId = 3, Title = "Proforma fatura taslağı ekranı", Description = "Tarihli, numaralı ve kalemli proforma/fatura taslağı ekranı hazırlanacak.", Priority = "Orta", StartDate = new DateTime(2026, 6, 7), DueDate = new DateTime(2026, 6, 18), ProgressPercentage = 75, CreatedAt = new DateTime(2026, 5, 17) },
+            new BuildTaskFlowTask { Id = 7, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 2, Title = "Gantt ve ilerleme yüzdesi ekranı", Description = "Proje, görev ve ekip üyesi bazlı Gantt görünümü hazırlanacak.", Priority = "Yüksek", StartDate = new DateTime(2026, 6, 10), DueDate = new DateTime(2026, 6, 18), ProgressPercentage = 55, CreatedAt = new DateTime(2026, 6, 10) },
+            new BuildTaskFlowTask { Id = 8, BuildTaskFlowProjectId = 1, BuildTaskFlowTaskStatusId = 3, Title = "Veritabanı ve rol testleri", Description = "Migration, rol bazlı erişim ve örnek kullanıcı akışı test edilecek.", Priority = "Yüksek", StartDate = new DateTime(2026, 6, 12), DueDate = new DateTime(2026, 6, 20), ProgressPercentage = 70, CreatedAt = new DateTime(2026, 6, 12) },
+            new BuildTaskFlowTask { Id = 9, BuildTaskFlowProjectId = 2, BuildTaskFlowTaskStatusId = 2, Title = "Ekip üyesi bazlı görev raporu", Description = "Kişilere göre görev sayısı, tamamlanan görev ve ortalama yüzde değerleri kontrol edilecek.", Priority = "Orta", StartDate = new DateTime(2026, 6, 11), DueDate = new DateTime(2026, 6, 22), ProgressPercentage = 45, CreatedAt = new DateTime(2026, 6, 11) },
+            new BuildTaskFlowTask { Id = 10, BuildTaskFlowProjectId = 2, BuildTaskFlowTaskStatusId = 3, Title = "Final demo testleri", Description = "Sunum sırasında açılacak ekranlar ve örnek veriler uçtan uca test edilecek.", Priority = "Yüksek", StartDate = new DateTime(2026, 6, 14), DueDate = new DateTime(2026, 6, 24), ProgressPercentage = 60, CreatedAt = new DateTime(2026, 6, 14) },
+            new BuildTaskFlowTask { Id = 11, BuildTaskFlowProjectId = 2, BuildTaskFlowTaskStatusId = 2, Title = "Sunum demo verilerini güncelleme", Description = "Gantt, görev yüzdeleri ve rapor ekranlarında kullanılacak demo verileri güncellenecek.", Priority = "Orta", StartDate = new DateTime(2026, 6, 13), DueDate = new DateTime(2026, 6, 27), ProgressPercentage = 30, CreatedAt = new DateTime(2026, 6, 13) });
 
         modelBuilder.Entity<BuildTaskFlowTaskAssignment>().HasData(
             new BuildTaskFlowTaskAssignment { Id = 1, BuildTaskFlowTaskId = 1, BuildTaskFlowTeamMemberId = 2, AssignedAt = new DateTime(2026, 5, 1) },
@@ -364,11 +369,18 @@ public class ApplicationDbContext : DbContext
             new BuildTaskFlowTaskAssignment { Id = 3, BuildTaskFlowTaskId = 3, BuildTaskFlowTeamMemberId = 3, AssignedAt = new DateTime(2026, 5, 12) },
             new BuildTaskFlowTaskAssignment { Id = 4, BuildTaskFlowTaskId = 4, BuildTaskFlowTeamMemberId = 4, AssignedAt = new DateTime(2026, 5, 14) },
             new BuildTaskFlowTaskAssignment { Id = 5, BuildTaskFlowTaskId = 5, BuildTaskFlowTeamMemberId = 2, AssignedAt = new DateTime(2026, 5, 16) },
-            new BuildTaskFlowTaskAssignment { Id = 6, BuildTaskFlowTaskId = 6, BuildTaskFlowTeamMemberId = 5, AssignedAt = new DateTime(2026, 5, 17) });
+            new BuildTaskFlowTaskAssignment { Id = 6, BuildTaskFlowTaskId = 6, BuildTaskFlowTeamMemberId = 5, AssignedAt = new DateTime(2026, 5, 17) },
+            new BuildTaskFlowTaskAssignment { Id = 7, BuildTaskFlowTaskId = 7, BuildTaskFlowTeamMemberId = 2, AssignedAt = new DateTime(2026, 6, 10) },
+            new BuildTaskFlowTaskAssignment { Id = 8, BuildTaskFlowTaskId = 8, BuildTaskFlowTeamMemberId = 3, AssignedAt = new DateTime(2026, 6, 12) },
+            new BuildTaskFlowTaskAssignment { Id = 9, BuildTaskFlowTaskId = 9, BuildTaskFlowTeamMemberId = 4, AssignedAt = new DateTime(2026, 6, 11) },
+            new BuildTaskFlowTaskAssignment { Id = 10, BuildTaskFlowTaskId = 10, BuildTaskFlowTeamMemberId = 2, AssignedAt = new DateTime(2026, 6, 14) },
+            new BuildTaskFlowTaskAssignment { Id = 11, BuildTaskFlowTaskId = 11, BuildTaskFlowTeamMemberId = 5, AssignedAt = new DateTime(2026, 6, 13) });
 
         modelBuilder.Entity<BuildTaskFlowComment>().HasData(
             new BuildTaskFlowComment { Id = 1, BuildTaskFlowTaskId = 3, BuildTaskFlowTeamMemberId = 2, Text = "Stok artışı iş kuralı süreç takibinde özellikle kontrol edilecek.", CreatedAt = new DateTime(2026, 5, 20, 10, 30, 0) },
-            new BuildTaskFlowComment { Id = 2, BuildTaskFlowTaskId = 4, BuildTaskFlowTeamMemberId = 4, Text = "Dashboard kartları test edildi, tarih ve para gösterimleri kontrol edilecek.", CreatedAt = new DateTime(2026, 5, 22, 14, 15, 0) });
+            new BuildTaskFlowComment { Id = 2, BuildTaskFlowTaskId = 4, BuildTaskFlowTeamMemberId = 4, Text = "Dashboard kartları test edildi, tarih ve para gösterimleri kontrol edilecek.", CreatedAt = new DateTime(2026, 5, 22, 14, 15, 0) },
+            new BuildTaskFlowComment { Id = 3, BuildTaskFlowTaskId = 8, BuildTaskFlowTeamMemberId = 3, Text = "Rol bazlı erişim ve Gantt görünümü test senaryosuna eklendi.", CreatedAt = new DateTime(2026, 6, 12, 11, 30, 0) },
+            new BuildTaskFlowComment { Id = 4, BuildTaskFlowTaskId = 10, BuildTaskFlowTeamMemberId = 2, Text = "Final demosunda Gantt tarihleri ve tamamlanma yüzdeleri özellikle gösterilecek.", CreatedAt = new DateTime(2026, 6, 14, 15, 45, 0) });
 
         modelBuilder.Entity<BuildTaskFlowInvoice>().HasData(
             new BuildTaskFlowInvoice

@@ -73,12 +73,12 @@ public class EditModel : PageModel
         existingTask.Title = TaskItem.Title;
         existingTask.Description = TaskItem.Description;
         existingTask.Priority = TaskItem.Priority;
+        existingTask.StartDate = TaskItem.StartDate;
         existingTask.DueDate = TaskItem.DueDate;
+        existingTask.ProgressPercentage = TaskItem.ProgressPercentage;
 
         var selectedStatus = await _context.BuildTaskFlowTaskStatuses.FindAsync(TaskItem.BuildTaskFlowTaskStatusId);
-        existingTask.CompletedAt = selectedStatus?.Name == "Tamamlandı"
-            ? existingTask.CompletedAt ?? DateTime.Now
-            : null;
+        ApplyProgressRules(existingTask, selectedStatus?.Name);
 
         _context.BuildTaskFlowTaskAssignments.RemoveRange(existingTask.Assignments);
         if (AssignedTeamMemberId.HasValue)
@@ -121,5 +121,20 @@ public class EditModel : PageModel
         ProjectOptions = new SelectList(await _context.BuildTaskFlowProjects.OrderBy(project => project.Name).ToListAsync(), "Id", "Name", TaskItem.BuildTaskFlowProjectId);
         StatusOptions = new SelectList(await _context.BuildTaskFlowTaskStatuses.OrderBy(status => status.SortOrder).ToListAsync(), "Id", "Name", TaskItem.BuildTaskFlowTaskStatusId);
         MemberOptions = new SelectList(await _context.BuildTaskFlowTeamMembers.Where(member => member.IsActive).OrderBy(member => member.FullName).ToListAsync(), "Id", "FullName", AssignedTeamMemberId);
+    }
+
+    private static void ApplyProgressRules(BuildTaskFlowTask task, string? statusName)
+    {
+        task.ProgressPercentage = Math.Clamp(task.ProgressPercentage, 0, 100);
+
+        if (statusName == "Tamamlandı")
+        {
+            task.ProgressPercentage = 100;
+            task.CompletedAt ??= DateTime.Now;
+        }
+        else if (task.ProgressPercentage < 100)
+        {
+            task.CompletedAt = null;
+        }
     }
 }

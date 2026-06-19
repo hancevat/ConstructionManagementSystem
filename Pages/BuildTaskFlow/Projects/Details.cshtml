@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "BuildTaskFlow Proje Detayı";
     var canManageTasks = BuildTaskFlowPermissions.CanManageTasks(User);
+    var projectProgress = Model.Project.Tasks.Any()
+        ? (int)Math.Round(Model.Project.Tasks.Average(task => task.ProgressPercentage))
+        : 0;
 }
 
 <div class="page-heading">
@@ -42,6 +45,14 @@
             <div class="details-label">Fatura/Proforma</div>
             <div class="details-value">@Model.Project.Invoices.Count kayıt</div>
         </div>
+        <div class="details-item">
+            <div class="details-label">Tamamlanma</div>
+            <div class="details-value">
+                <div class="progress progress-thin" role="progressbar" aria-valuenow="@projectProgress" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" style="width: @projectProgress%">@projectProgress%</div>
+                </div>
+            </div>
+        </div>
     </div>
     <p class="text-muted mt-3 mb-0">@Model.Project.Description</p>
 </div>
@@ -55,7 +66,9 @@
                     <th>Görev</th>
                     <th>Durum</th>
                     <th>Öncelik</th>
+                    <th>Başlangıç</th>
                     <th>Teslim</th>
+                    <th>Tamamlanma</th>
                     <th>Atanan</th>
                     <th>İşlem</th>
                 </tr>
@@ -67,7 +80,13 @@
                         <td>@task.Title</td>
                         <td><span class="badge text-bg-secondary">@task.Status?.Name</span></td>
                         <td>@task.Priority</td>
+                        <td>@(task.StartDate?.ToString("dd.MM.yyyy") ?? "-")</td>
                         <td>@(task.DueDate?.ToString("dd.MM.yyyy") ?? "-")</td>
+                        <td style="min-width: 140px;">
+                            <div class="progress progress-thin" role="progressbar" aria-valuenow="@task.ProgressPercentage" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" style="width: @task.ProgressPercentage%">@task.ProgressPercentage%</div>
+                            </div>
+                        </td>
                         <td>@string.Join(", ", task.Assignments.Select(item => item.TeamMember?.FullName))</td>
                         <td><a class="btn btn-outline-info btn-sm" asp-page="/BuildTaskFlow/Tasks/Details" asp-route-id="@task.Id">Detay</a></td>
                     </tr>
