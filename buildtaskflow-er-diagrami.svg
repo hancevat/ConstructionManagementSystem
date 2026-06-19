@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1950" height="1220" viewBox="0 0 1950 1220">
 <defs>
   <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -23,8 +24,8 @@
 </style>
 
 <rect class="bg" x="0" y="0" width="1950" height="1220" />
-<text class="title" x="40" y="42">BuildTaskFlow ER Diyagram?</text>
-<text class="subtitle" x="40" y="66">Roller, ekip ?yeleri, proje planlar?, g?revler, yorumlar ve proforma/fatura taslaklar?</text>
+<text class="title" x="40" y="42">BuildTaskFlow ER Diyagramı ve Gantt Şeması Alanları</text>
+<text class="subtitle" x="40" y="66">Roller, ekip üyeleri, proje planları, görevler, Gantt tarihleri, ilerleme yüzdeleri, yorumlar ve proforma/fatura taslakları</text>
 
 <g>
 <rect class="entity" x="60" y="140" width="300" height="104" />
@@ -68,7 +69,7 @@
 <text class="field" x="1522" y="210">SortOrder</text>
 </g>
 <g>
-<rect class="entity" x="980" y="470" width="360" height="224" />
+<rect class="entity" x="980" y="470" width="360" height="264" />
 <path class="entity-head" d="M980,480 Q980,470 990,470 H1330 Q1340,470 1340,480 V502 H980 Z" />
 <text class="entity-title" x="992" y="491">BuildTaskFlowTasks</text>
 <text class="field pk" x="992" y="520">Id PK</text>
@@ -77,9 +78,11 @@
 <text class="field" x="992" y="580">Title</text>
 <text class="field" x="992" y="600">Description</text>
 <text class="field" x="992" y="620">Priority</text>
-<text class="field" x="992" y="640">DueDate</text>
-<text class="field" x="992" y="660">CreatedAt</text>
-<text class="field" x="992" y="680">CompletedAt</text>
+<text class="field" x="992" y="640">StartDate</text>
+<text class="field" x="992" y="660">DueDate</text>
+<text class="field" x="992" y="680">ProgressPercentage</text>
+<text class="field" x="992" y="700">CreatedAt</text>
+<text class="field" x="992" y="720">CompletedAt</text>
 </g>
 <g>
 <rect class="entity" x="470" y="520" width="390" height="124" />
@@ -145,9 +148,9 @@
 <path class="line" d="M650,300 C650.0,300 650.0,520 650,520" />
 <rect class="label-bg" x="552.1" y="398.0" width="195.8" height="18" />
 <text class="label" text-anchor="middle" x="650.0" y="411.0">BuildTaskFlowTeamMemberId 1-N</text>
-<path class="line" d="M1160,668 C1160.0,668 1160.0,860 1160,860" />
-<rect class="label-bg" x="1080.7" y="752.0" width="158.6" height="18" />
-<text class="label" text-anchor="middle" x="1160.0" y="765.0">BuildTaskFlowTaskId 1-N</text>
+<path class="line" d="M1160,720 C1160.0,720 1160.0,860 1160,860" />
+<rect class="label-bg" x="1080.7" y="778.0" width="158.6" height="18" />
+<text class="label" text-anchor="middle" x="1160.0" y="791.0">BuildTaskFlowTaskId 1-N</text>
 <path class="line" d="M830,260 C905.0,260 905.0,930 980,930" />
 <rect class="label-bg" x="807.1" y="583.0" width="195.8" height="18" />
 <text class="label" text-anchor="middle" x="905.0" y="596.0">BuildTaskFlowTeamMemberId 1-N</text>
@@ -157,4 +160,5 @@
 <path class="line" d="M1685,730 C1685.0,730 1685.0,900 1685,900" />
 <rect class="label-bg" x="1596.4" y="803.0" width="177.2" height="18" />
 <text class="label" text-anchor="middle" x="1685.0" y="816.0">BuildTaskFlowInvoiceId 1-N</text>
+<text class="small" x="60" y="1130">Not: Gantt ekranı görevlerin StartDate, DueDate ve ProgressPercentage alanlarını kullanarak tarih aralığı ve tamamlanma yüzdesi gösterir.</text>
 </svg>

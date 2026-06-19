@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1220" viewBox="0 0 1900 1220">
 <defs>
   <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -23,8 +24,8 @@
 </style>
 
 <rect class="bg" x="0" y="0" width="1900" height="1220" />
-<text class="title" x="40" y="42">Ana ?n?aat Otomasyonu ER Diyagram?</text>
-<text class="subtitle" x="40" y="66">ConstructionManagementDb ana tablolar?, PK/FK alanlar? ve 1-N ili?kiler</text>
+<text class="title" x="40" y="42">Ana İnşaat Otomasyonu ER Diyagramı</text>
+<text class="subtitle" x="40" y="66">ConstructionManagementDb ana tabloları, PK/FK alanları ve 1-N ilişkiler</text>
 
 <g>
 <rect class="entity" x="60" y="130" width="270" height="144" />
@@ -176,5 +177,5 @@
 <path class="line" d="M1540,360 C1470.0,360 1470.0,780 1400,780" />
 <rect class="label-bg" x="1418.6" y="558.0" width="102.8" height="18" />
 <text class="label" text-anchor="middle" x="1470.0" y="571.0">SupplierId 1-N</text>
-<text class="small" x="66" y="1110">Not: Subcontractors mevcut modelde ba??ms?z CRUD tablosudur; do?rudan proje FK ili?kisi yoktur.</text>
+<text class="small" x="66" y="1110">Not: Subcontractors mevcut modelde bağımsız CRUD tablosudur; doğrudan proje FK ilişkisi yoktur.</text>
 </svg>
